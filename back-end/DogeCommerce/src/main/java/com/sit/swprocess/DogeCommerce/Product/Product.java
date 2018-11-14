@@ -1,11 +1,11 @@
-package com.sit.swprocess.DogeCommerce.Product;
+package com.sit.swprocess.DogeCommerce.Product.;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-
+@TABLE
 @Entity
 public class Product {
 
