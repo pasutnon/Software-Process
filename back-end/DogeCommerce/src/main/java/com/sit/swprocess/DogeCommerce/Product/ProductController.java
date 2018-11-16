@@ -2,6 +2,8 @@ package com.sit.swprocess.DogeCommerce.Product;
 
 import java.util.List;
 
+import com.sit.swprocess.DogeCommerce.ProductImage.ProductImage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,21 +19,24 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> product = productService.getAllProducts();
         return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(path="/products/{name}")
-    public ResponseEntity<List<Product>> getAllProductsByName(@PathVariable("name") String name)  {
+    @RequestMapping(path = "/products/{name}")
+    public ResponseEntity<List<Product>> getAllProductsByName(@PathVariable("name") String name) {
 
         List<Product> product = productService.getAllProductByName(name);
         return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
     }
 
-
-
-
+    @RequestMapping(path = "/products/{product_id}/images")
+    public ResponseEntity<ProductImage> getAllProductsByName(@PathVariable("product_id") Long product_id) {
+        ProductImage product_image = productService.getPathByProductId(product_id);
+        return new ResponseEntity<ProductImage>(product_image, HttpStatus.OK);
+    }
 
 }

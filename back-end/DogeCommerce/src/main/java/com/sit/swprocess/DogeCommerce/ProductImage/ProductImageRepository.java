@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
 
-    List<ProductImage> findPathByProductId(Long product_id);
+    ProductImage findPathByProductId(Long product_id);
 }
