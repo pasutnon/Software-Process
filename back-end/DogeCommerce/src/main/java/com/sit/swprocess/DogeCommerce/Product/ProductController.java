@@ -19,14 +19,13 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> product = productService.getAllProducts();
         return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/products/{name}")
+    @RequestMapping(path = "/products/name/{name}")
     public ResponseEntity<List<Product>> getAllProductsByName(@PathVariable("name") String name) {
 
         List<Product> product = productService.getAllProductByName(name);
@@ -37,6 +36,13 @@ public class ProductController {
     public ResponseEntity<ProductImage> getAllProductsByName(@PathVariable("product_id") Long product_id) {
         ProductImage product_image = productService.getPathByProductId(product_id);
         return new ResponseEntity<ProductImage>(product_image, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/products/id/{product_id}")
+    public ResponseEntity<Product> getProductById(@PathVariable("product_id") Long product_id) {
+        Product product = productService.getProductById(product_id);
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
+
     }
 
 }
