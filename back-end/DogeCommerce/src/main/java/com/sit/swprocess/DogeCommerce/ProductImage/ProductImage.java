@@ -1,7 +1,6 @@
 package com.sit.swprocess.DogeCommerce.ProductImage;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,17 +10,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sit.swprocess.DogeCommerce.Product.Product;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-@EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "product_image")
-public class ProductImage{
+@Table(name = "Product_image")
+public class ProductImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +29,8 @@ public class ProductImage{
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Product product;
 
     public ProductImage() {
@@ -69,11 +68,7 @@ public class ProductImage{
 
     @Override
     public String toString() {
-        return "ProductImage{" +
-                "id=" + id +
-                ", path='" + path + '\'' +
-                ", product=" + product +
-                '}';
+        return "ProductImage{" + "id=" + id + ", path='" + path + '\'' + ", product=" + product + '}';
     }
 
 }
