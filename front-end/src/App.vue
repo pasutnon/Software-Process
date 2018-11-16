@@ -1,20 +1,23 @@
 <template>
-  <v-app>
-    <v-content>
-      <router-view></router-view>
-    </v-content>
-  </v-app>
+  <div id="app">
+    <Navbar></Navbar>
+    <ShowProducts></ShowProducts>
+
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  components: {
-  },
-  data () {
-    return {
-      //
+    import Navbar from './components/Navbar';
+    import Footer from './components/Footer';
+    import ShowProducts from './components/ShowProducts';
+
+    export default {
+        name: 'app',
+        components: {
+            ShowProducts,
+            Navbar,
+            Footer
+        }
     }
-  }
-}
 </script>

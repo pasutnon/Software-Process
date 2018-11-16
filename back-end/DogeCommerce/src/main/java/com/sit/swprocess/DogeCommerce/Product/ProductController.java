@@ -25,7 +25,7 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/products/{name}")
+    @RequestMapping(path = "/products/name/{name}")
     public ResponseEntity<List<Product>> getAllProductsByName(@PathVariable("name") String name) {
 
         List<Product> product = productService.getAllProductByName(name);
@@ -36,6 +36,13 @@ public class ProductController {
     public ResponseEntity<ProductImage> getAllProductsByName(@PathVariable("product_id") Long product_id) {
         ProductImage product_image = productService.getPathByProductId(product_id);
         return new ResponseEntity<ProductImage>(product_image, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/products/{product_id}/id")
+    public ResponseEntity<Product> getProductById(@PathVariable("product_id") Long product_id) {
+        Product product = productService.getProductById(product_id);
+        return new ResponseEntity<Product>(product, HttpStatus.OK);
+
     }
 
 }
