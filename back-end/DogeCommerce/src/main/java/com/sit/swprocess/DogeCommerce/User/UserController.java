@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
@@ -20,7 +22,10 @@ public class UserController {
 
     @GetMapping(path = "/email/{email}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-        User user = userService.getUserByEmail(email);
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        Optional<User> user = userService.getUserByEmail(email);
+        if(user.isPresent() == false) {
+            throw new UserNotFoundException();
+        }
+        return new ResponseEntity<User>(user.get(), HttpStatus.OK);
     }
 }
