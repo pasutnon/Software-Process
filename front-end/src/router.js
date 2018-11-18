@@ -26,6 +26,13 @@ export default new Router({
       component: function () { 
         return import('./views/User.vue')
       }
+    },
+    {
+      path: '/ShowProducts',
+      name: 'ShowProducts',
+      component: function () { 
+        return import('./components/ShowProducts')
+      }
     }
   ]
 })

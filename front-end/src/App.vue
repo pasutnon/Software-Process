@@ -6,7 +6,9 @@
     <nav>
         <Navbar></Navbar>
     </nav>
+    
         <router-view></router-view>
+        <ShowProducts></ShowProducts>
 </v-app>
 </template>
 
@@ -25,9 +27,9 @@
 
 <style>
 nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin-bottom: 0 !important;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0 !important;
 }
 </style>

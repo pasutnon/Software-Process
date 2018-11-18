@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @RequestMapping(path = "/products/{product_id}/images")
-    public ResponseEntity<ProductImage> getAllProductsByName(@PathVariable("product_id") Long product_id) {
+    public ResponseEntity<ProductImage> getPathByProductId(@PathVariable("product_id") Long product_id) {
         ProductImage product_image = productService.getPathByProductId(product_id);
         return new ResponseEntity<ProductImage>(product_image, HttpStatus.OK);
     }
