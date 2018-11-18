@@ -12,14 +12,15 @@
             
             
         </p>
-        <div>
-            <span>
-                <h2>Total Prices : {{ totalPrices }} Baht</h2>
-                <h2>Total Products : {{ totalProducts }}</h2>
+        
+    </div>
+    <div>
+        <span>
+            <h2>Total Prices : {{ totalPrices }} Baht</h2>
+            <h2>Total Products : {{ totalProducts }}</h2>
 
-            </span>
+        </span>
 
-        </div>
     </div>
     </div>
 </template>
@@ -42,7 +43,7 @@
         },
         totalPrices(){
             return this.cart.reduce((sum,product)=>{
-                return sum + product.price
+                return sum + (product.price*product.quantity)
             } , 0)
         }
     },
@@ -73,7 +74,8 @@
         addQuantity: function (product){
             product.quantity +=1;
             this.saveCart();
-        }
+        },
+        
     }
     }
 
