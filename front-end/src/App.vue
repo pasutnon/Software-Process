@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <Navbar></Navbar>
+    <!-- <Navbar></Navbar>
     <ShowProducts></ShowProducts>
 
-    <Footer></Footer>
+    <Footer></Footer> -->
+
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,9 +17,11 @@
     export default {
         name: 'app',
         components: {
-            ShowProducts,
-            Navbar,
-            Footer
+        },
+        data(){
+            return {
+
+            }        
         }
     }
 </script>
