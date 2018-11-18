@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>My cart</h2>
-    <div v-for="(product , n) in cart">
+    <div v-for="(product , n) in cart" :key="n">
         <p>
             <span>{{ n+1 }} {{ product.productName }} {{ product.price }} {{ product.quantity }}
                 <v-btn @click="product.quantity += 1">+</v-btn>
