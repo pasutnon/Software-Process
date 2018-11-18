@@ -1,21 +1,36 @@
 <template>
     <div>
-        <img alt="Vue logo" src="../assets/logo.png" width="50%"/>
-         <ul v-if="products && products.length">
-        <li v-for="product in products" :key="product">
-         <p><strong>ProductName : {{product.productName}}</strong></p>
-         <p>SKU Number : {{product.skuNumber}}</p>
-         <p>Product Detail : {{product.productDetail}}</p>
-         <p>Stock Quantity : {{product.stockQuantity}}</p>
-          <button><img src="../assets/Cart-Orange.svg" height="47"/></button>
-        </li>
+      <ul v-if="products && products.length">
+        <div v-for="product in products" :key="product">
+      <v-flex xs6 sm6 offset-sm3 style="text-align:center; margin:auto !important;">
+      <v-card>
+        <v-img
+          src="../../นมจืด ดัชมิลล์.png"
+          aspect-ratio="1"
+        ></v-img>
 
-  </ul>
+        <v-card-title primary-title>
+          <div>
+            <h2 class="headline mb-0">{{product.productName}}</h2>
+            <h2 class="headline mb-0" color="#F5580C">฿{{product.price | formatNumber}}</h2>
+          </div>
+        </v-card-title>
+
+        <v-card-actions>
+          <v-btn color="#F5580C">ใส่รถเข็น</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+    </div>
+    </ul>
     </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
+import numeral from "numeral"
+import vue from "vue"
+
 export default {
   name: "ShowProducts",
   data() {
@@ -26,11 +41,13 @@ export default {
 
   created() {
     axios
-      .get('https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products')
+      .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   }
 };
+  vue.filter("formatNumber", function (value) {
+    return numeral(value).format("0,0");
+  });
 </script>
-
 <style scoped>
 </style>
