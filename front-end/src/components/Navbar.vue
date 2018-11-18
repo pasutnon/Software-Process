@@ -41,12 +41,13 @@ export default {
   data() {
     return {
       menu: '',
-      cart: 2
+      cart: JSON.parse(localStorage.getItem('cart')).length
     };
   },
-  methods:{
-    
-  }
+  
+      
+  
+
 };
 </script>
 
