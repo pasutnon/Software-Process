@@ -1,8 +1,9 @@
 <template>
+<logo>
     <div>
-        <v-toolbar color="white" height="50.00px">
+        <v-toolbar color="white" height="50.00px" >
             <div style="text-align:center; margin:auto !important;">
-                <img  v-bind:src="`${picture1}`" width="100"/>
+                <img src="../../assets/logo.png" alt="" width="100px">
             </div>
             <div>
 
@@ -11,6 +12,7 @@
         <v-toolbar id="orange-line" color="#F5580C" height="3.75px">
         </v-toolbar>
     </div>
+</logo>
 </template>
 
 <script>
@@ -18,8 +20,15 @@
         name: "HomeHeder",
         data() {
             return {
-                picture1: '../assets/logo.png'
             }
         }
     }
 </script>
+<style>
+top {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 0 !important;
+}
+</style>
