@@ -1,5 +1,8 @@
 <template>
 <v-app>
+    <div>
+        <HomeHeader></HomeHeader>
+    </div>
     <nav>
         <Navbar></Navbar>
     </nav>
@@ -9,15 +12,13 @@
 
 <script>
     import Navbar from './components/Navbar';
-    import Footer from './components/Footer';
-    import ShowProducts from './components/ShowProducts';
+    import HomeHeader from './components/header/HomeHeader';
 
     export default {
         name: 'app',
         components: {
-            ShowProducts,
-            Navbar,
-            Footer
+            HomeHeader,
+            Navbar
         }
     }
 </script>
