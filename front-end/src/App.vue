@@ -1,5 +1,6 @@
 <template>
 <v-app>
+<<<<<<< HEAD
     <div>
         <HomeHeader></HomeHeader>
     </div>
@@ -9,6 +10,10 @@
     
         <router-view></router-view>
         <ShowProducts></ShowProducts>
+=======
+      <Navbar></Navbar>
+      <router-view></router-view>
+>>>>>>> f9a7a74472e7286adb03066e800f2692145c54cd
 </v-app>
 </template>
 
@@ -16,6 +21,7 @@
     import Navbar from './components/Navbar';
     import HomeHeader from './components/header/HomeHeader';
 
+<<<<<<< HEAD
     export default {
         name: 'app',
         components: {
@@ -33,3 +39,14 @@ nav {
   margin-bottom: 0 !important;
 }
 </style>
+=======
+export default {
+  name: "app",
+  components: {
+    ShowProducts,
+    Navbar,
+    Footer
+  }
+};
+</script>
+>>>>>>> f9a7a74472e7286adb03066e800f2692145c54cd
