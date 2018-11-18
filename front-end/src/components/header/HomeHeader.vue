@@ -18,7 +18,7 @@
         name: "HomeHeder",
         data() {
             return {
-                picture1: '../logo.png'
+                picture1: '../assets/logo.png'
             }
         }
     }
