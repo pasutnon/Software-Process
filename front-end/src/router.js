@@ -28,6 +28,13 @@ export default new Router({
       }
     },
     {
+      path: '/product/detail/:productID',
+      name: 'productDetail',
+      component: function () { 
+        return import('./views/ProductDetail')
+      }
+    },
+    {
       path: '/ShowProducts',
       name: 'ShowProducts',
       component: function () { 
