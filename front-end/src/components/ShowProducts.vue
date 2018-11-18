@@ -7,7 +7,9 @@
          <p>SKU Number : {{product.skuNumber}}</p>
          <p>Product Detail : {{product.productDetail}}</p>
          <p>Stock Quantity : {{product.stockQuantity}}</p>
+          <button><img src="../assets/Cart-Orange.svg" height="47"/></button>
         </li>
+
   </ul>
     </div>
 </template>
