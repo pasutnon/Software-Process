@@ -2,7 +2,7 @@
     <div>
         <v-toolbar color="white" height="50.00px">
             <div style="text-align:center; margin:auto !important;">
-                <img  v-bind:src="`${picture1}`" width="100"/>
+                <img src="../../assets/logo.png" width="100"/>
             </div>
             <div>
 
@@ -18,7 +18,6 @@
         name: "HomeHeder",
         data() {
             return {
-                picture1: '../assets/logo.png'
             }
         }
     }

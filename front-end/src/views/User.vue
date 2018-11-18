@@ -17,22 +17,19 @@
         </b-container>
     </div>
     <div class="text-xs-center" v-else>
-        <v-toolbar color="while" card>
-            <v-spacer></v-spacer>
-            <h4 class="text-nav">บัญชีของคุณ</h4>
-            <v-spacer></v-spacer>
-        </v-toolbar>
-            <hr class="hr-1" />
+        <AccoutHeader></AccoutHeader>
     </div>
 </div>
 </template>
 
 <script>
 import LoginHeader from '../components/header/LoginHeader';
+import AccoutHeader from '../components/header/AccoutHeader';
     export default {
         name: "user",
         components: {
-            LoginHeader
+            LoginHeader,
+            AccoutHeader
         },
         data() {
             return {
@@ -55,8 +52,5 @@ import LoginHeader from '../components/header/LoginHeader';
 }
 .button-login{
   width: 90%;
-}
-.text-nav{
-    color: orangered;
 }
 </style>

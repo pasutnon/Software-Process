@@ -15,9 +15,18 @@
         <v-btn value="/search" color="#F5580C" flat to="/search">
           <img src="../assets/Category-Orange.svg" height="40"/>
         </v-btn>
+        
+        <v-btn value="/cart" color="#F5580C" flat to="/cart" v-if="cart===0">
+          <v-badge>
+            <img src="../assets/Cart-Orange.svg" height="40"/>
+          </v-badge>
+        </v-btn>
 
-        <v-btn value="/cart" color="#F5580C" flat to="/cart">
-          <img src="../assets/Cart-Orange.svg" height="40"/>
+        <v-btn value="/cart" color="#F5580C" flat to="/cart" v-else>
+          <v-badge color="red">
+            <span slot="badge">{{cart}}</span>
+            <img src="../assets/Cart-Orange.svg" height="40"/>
+          </v-badge>
         </v-btn>
 
         <v-btn value="/user" color="#F5580C" flat to="/user">
