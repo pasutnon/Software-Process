@@ -1,5 +1,8 @@
 <template>
 <div style="text-align:center">
+  <div>
+        <HomeHeader></HomeHeader>
+  </div>
   <p></p>
   <v-text>สินค้าทั้งหมด</v-text>
   <p></p>
@@ -26,14 +29,25 @@
     </v-flex>
   </v-layout>
   <!-- End Card layout -->
+  <ShowProducts></ShowProducts>
 </div>
 </template>
+
 <script>
-import HomeHeader from './components/header/HomeHeader';
+import HomeHeader from '../components/header/HomeHeader';
+import ShowProducts from '../components/ShowProducts';
 
 export default {
   components: {
-      HomeHeader
-  }
+    HomeHeader,
+    ShowProducts
+  },
+  data() {
+      return {
+        card_text:
+          "Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat."
+          ,
+      };
+    }
 };
 </script>

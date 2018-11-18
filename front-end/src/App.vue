@@ -1,20 +1,12 @@
 <template>
 <v-app>
-    <div>
-        <HomeHeader></HomeHeader>
-    </div>
-    <nav>
-        <Navbar></Navbar>
-    </nav>
-    
-        <router-view></router-view>
-        <ShowProducts></ShowProducts>
+    <Navbar></Navbar>
+    <router-view></router-view>
 </v-app>
 </template>
 
 <script>
-    import Navbar from './components/Navbar';
-
+import Navbar from './components/Navbar';
     export default {
         name: 'app',
         components: {
@@ -22,12 +14,3 @@
         }
     }
 </script>
-
-<style>
-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  margin-bottom: 0 !important;
-}
-</style>
