@@ -1,11 +1,7 @@
 <template>
 <v-app>
-    <nav>
-        <Navbar></Navbar>
-    </nav>
-    
-        <router-view></router-view>
-        <ShowProducts></ShowProducts>
+      <Navbar></Navbar>
+      <router-view></router-view>
 </v-app>
 </template>
 
@@ -23,12 +19,3 @@ export default {
   }
 };
 </script>
-
-<style>
-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  margin-bottom: 0 !important;
-}
-</style>
