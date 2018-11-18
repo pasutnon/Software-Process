@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Payment from './views/Payment.vue'
 
 Vue.use(Router)
 
@@ -47,6 +48,11 @@ export default new Router({
       component: function () { 
         return import('./components/ShowProducts')
       }
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     }
   ]
 })
