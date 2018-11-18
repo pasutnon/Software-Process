@@ -26,6 +26,27 @@ export default new Router({
       component: function () { 
         return import('./views/Cart.vue')
       }
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: function () { 
+        return import('./views/User.vue')
+      }
+    },
+    {
+      path: '/product/detail/:productID',
+      name: 'productDetail',
+      component: function () { 
+        return import('./views/ProductDetail')
+      }
+    },
+    {
+      path: '/ShowProducts',
+      name: 'ShowProducts',
+      component: function () { 
+        return import('./components/ShowProducts')
+      }
     }
   ]
 })

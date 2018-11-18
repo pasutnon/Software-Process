@@ -1,27 +1,16 @@
 <template>
-  <div id="app">
-    <!-- <Navbar></Navbar>
-    <ShowProducts></ShowProducts>
-
-    <Footer></Footer> -->
-
-    <router-view></router-view>
-  </div>
+    <v-app>
+        <Navbar></Navbar>
+        <router-view></router-view>
+    </v-app>
 </template>
 
 <script>
-    import Navbar from './components/Navbar';
-    import Footer from './components/Footer';
-    import ShowProducts from './components/ShowProducts';
-
+import Navbar from './components/Navbar';
     export default {
         name: 'app',
         components: {
-        },
-        data(){
-            return {
-
-            }        
+            Navbar
         }
     }
 </script>

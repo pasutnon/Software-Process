@@ -59,8 +59,16 @@
     },
     method:{
         addProductInCart(product){
-            product.quantity = 1;
-            this.cart.push(product);
+            let cart = JSON.parse(localStorage.getItem('cart'))
+            let targetProduct = cart.filter((cartProduct) => {
+                return product.ID === cartProduct.ID
+            })
+            if(targetProduct) {
+                targetProduct.quantity += 1
+            }else {
+                product.quantity = 1
+                this.cart.push(product)
+            }
             this.saveCart();
         },
         removeProduct(product){
