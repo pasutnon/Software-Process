@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
-    <Navbar></Navbar>
-    <ShowProducts></ShowProducts>
-
-    <Footer></Footer>
-  </div>
+<v-app>
+    <nav>
+        <Navbar></Navbar>
+    </nav>
+        <router-view></router-view>
+</v-app>
 </template>
 
 <script>
@@ -21,3 +21,12 @@
         }
     }
 </script>
+
+<style>
+nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 0 !important;
+}
+</style>
