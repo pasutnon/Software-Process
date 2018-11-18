@@ -1,18 +1,19 @@
 <template>
     <div>
-        <img alt="Vue logo" src="../assets/logo.png"/>
+        <img alt="Vue logo" src="../assets/logo.png" width="50%"/>
+         <ul v-if="products && products.length">
         <li v-for="product in products" :key="product">
-         {{ product.productName }},
-         {{ product.skuNumber }},
-         {{ product.price }},
-         {{ product.stockQuantity }}
+         <p><strong>ProductName : {{product.productName}}</strong></p>
+         <p>SKU Number : {{product.skuNumber}}</p>
+         <p>Product Detail : {{product.productDetail}}</p>
+         <p>Stock Quantity : {{product.stockQuantity}}</p>
         </li>
-
+  </ul>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "ShowProducts",
   data() {
@@ -21,14 +22,13 @@ export default {
     };
   },
 
-  created () {
+  created() {
     axios
-      .get('https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products')
-      .then(response => (this.products = response.data))
+      .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
+      .then(response => (this.products = response.data));
   }
 };
 </script>
 
 <style scoped>
-
 </style>
