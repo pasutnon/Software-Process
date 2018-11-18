@@ -3,7 +3,7 @@
     <div>
         <v-toolbar color="white" height="50.00px" >
             <div style="text-align:center; margin:auto !important;">
-                <img src="../../assets/logo.png" alt="" width="100px">
+                <img src="../../assets/logo.png" width="100"/>
             </div>
             <div>
 

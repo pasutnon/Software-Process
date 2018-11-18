@@ -17,7 +17,7 @@
         </v-card-title>
 
         <v-card-actions>
-          <v-btn color="#F5580C">ใส่รถเข็น</v-btn>
+          <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -35,7 +35,8 @@ export default {
   name: "ShowProducts",
   data() {
     return {
-      products: []
+      products: [],
+      cart: []
     };
   },
 
@@ -43,6 +44,31 @@ export default {
     axios
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
+  },
+  methods:{
+        addProductInCart: function (product){
+            let jsonCart = localStorage.getItem('cart')
+            if(!jsonCart) {
+                this.saveCart()
+                return
+            }
+            let cart = JSON.parse(jsonCart)
+            let targetProduct = cart.find((cartProduct) => {
+                return product.productId === cartProduct.productId
+            })
+            if(targetProduct) {
+                targetProduct.quantity += 1
+                this.cart = cart
+            }else {
+                product.quantity = 1
+                this.cart.push(product)
+            }
+            this.saveCart();
+        },
+        saveCart: function(){
+            const parsed = JSON.stringify(this.cart);
+            localStorage.setItem('cart',parsed);
+        }
   }
 };
   vue.filter("formatNumber", function (value) {

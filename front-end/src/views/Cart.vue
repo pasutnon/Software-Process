@@ -1,12 +1,13 @@
 <template>
   <div>
     <h2>My cart</h2>
-    <div v-for="(product , n) in cart" :key="n">
+    <div v-for="(product , n) in cart" v-bind:key="product.ID">
         <p>
             <span>{{ n+1 }} {{ product.productName }} {{ product.price }} {{ product.quantity }}
-                <v-btn @click="product.quantity += 1">+</v-btn>
+                <v-btn @click="addQuantity(product)">+</v-btn>
             </span>
             <v-btn @click="removeProduct(n)">remove</v-btn>
+            
 
             
             
@@ -30,10 +31,7 @@
         data(){
             return {
                 cart:[{
-                    ID:59130500063
-                    ,productName:"name"
-                    ,price:500
-                    ,quantity:1}]
+                    }]
             }        
         },
         computed:{
@@ -56,28 +54,25 @@
                 localStorage.removeItem('cart');
             }
         }
+        
     },
-    method:{
-        addProductInCart(product){
-            let cart = JSON.parse(localStorage.getItem('cart'))
-            let targetProduct = cart.filter((cartProduct) => {
-                return product.ID === cartProduct.ID
-            })
-            if(targetProduct) {
-                targetProduct.quantity += 1
-            }else {
-                product.quantity = 1
-                this.cart.push(product)
-            }
+    methods:{
+        addProductInCart: function (product){
+            product.quantity = 1;
+            this.cart.push(product);            
             this.saveCart();
         },
-        removeProduct(product){
+        removeProduct: function (product){
             this.cart.splice(product,1);
             this.saveCart();
         },
-        saveCart(){
+        saveCart: function (){
             const parsed = JSON.stringify(this.cart);
             localStorage.setItem('cart',parsed);
+        },
+        addQuantity: function (product){
+            product.quantity +=1;
+            this.saveCart();
         }
     }
     }
