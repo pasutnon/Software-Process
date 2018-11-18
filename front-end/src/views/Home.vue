@@ -1,9 +1,15 @@
 <template>
+<div>
 <h1>Home</h1>
+
+      <!-- <ShowProducts></ShowProducts> -->
+      </div>
 </template>
 <script>
-  export default {
-    components: {
-    }
+// import ShowProducts from "./components/ShowProducts";
+export default {
+  components: {
+    // ShowProducts
   }
+};
 </script>

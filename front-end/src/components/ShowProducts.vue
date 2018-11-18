@@ -26,8 +26,10 @@ export default {
 
   created() {
     axios
-      .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
+      .get('https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products')
       .then(response => (this.products = response.data));
+      
+      
   }
 };
 </script>
