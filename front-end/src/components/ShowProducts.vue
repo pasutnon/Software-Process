@@ -1,23 +1,32 @@
 <template>
     <div>
-        <h2>{{name}}</h2>
         <img alt="Vue logo" src="../assets/logo.png"/>
-        <p>{{productName}} {{productPrice}}</p>
+        <li v-for="product in products" :key="product">
+         {{ product.productName }},
+         {{ product.skuNumber }},
+         {{ product.price }},
+         {{ product.stockQuantity }}
+        </li>
 
     </div>
 </template>
 
 <script>
-    export default {
-        name: "ShowProducts" ,
-        data() {
-            return {
-                name: 'Productss',
-                productName: 'AAA',
-                productPrice: '900'
-            }
-        }
-    }
+import axios from 'axios';
+export default {
+  name: "ShowProducts",
+  data() {
+    return {
+      products: []
+    };
+  },
+
+  created () {
+    axios
+      .get('https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products')
+      .then(response => (this.products = response.data))
+  }
+};
 </script>
 
 <style scoped>
