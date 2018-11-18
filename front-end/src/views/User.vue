@@ -1,14 +1,7 @@
 <template>
 <div>
     <div class="text-xs-center" v-if="user">
-        <v-toolbar color="white" height="50.00px" card>
-            <v-spacer></v-spacer>
-            <router-link to="">มีบัญชีแล้วหรือยัง ?&nbsp;</router-link>
-            <v-btn color="deep-orange darken-2" class="button-r" dark>ลงทะเบียน</v-btn>
-            <v-spacer></v-spacer>
-        </v-toolbar>
-            <!-- <hr class="hr-1" /> -->
-        <v-toolbar id="orange-line" color="#F5580C" height="3.75px"></v-toolbar>
+        <LoginHeader></LoginHeader>
         <b-container>
             <b-form-input type="text" placeholder="อีเมล / ชื่อผู้ใช่"></b-form-input>
             <b-form-input type="password" placeholder="รหัสผ่าน"></b-form-input>
@@ -24,31 +17,31 @@
         </b-container>
     </div>
     <div class="text-xs-center" v-else>
-        <v-toolbar color="while" card>
-            <v-spacer></v-spacer>
-            <h4 class="text-nav">บัญชีของคุณ</h4>
-            <v-spacer></v-spacer>
-        </v-toolbar>
-            <hr class="hr-1" />
+        <AccoutHeader></AccoutHeader>
     </div>
 </div>
 </template>
 
 <script>
-export default {
-    name: "user",
-    components: {},
-    data() {
-        return {
-            user: true
+import LoginHeader from '../components/header/LoginHeader';
+import AccoutHeader from '../components/header/AccoutHeader';
+    export default {
+        name: "user",
+        components: {
+            LoginHeader,
+            AccoutHeader
+        },
+        data() {
+            return {
+                user: true
+            }
+        },
+        methods:{
+            PageUser(){
+                this.user = false
+            }
         }
-    },
-    methods:{
-        PageUser(){
-            this.user = false
-        }
-    }
-};
+    };
 </script>
 
 <style>
@@ -59,11 +52,5 @@ export default {
 }
 .button-login{
   width: 90%;
-}
-.button-r{
-  width: 20%;
-}
-.text-nav{
-    color: orangered;
 }
 </style>
