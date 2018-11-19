@@ -43,11 +43,7 @@ export default {
       menu: '',
       cart: JSON.parse(localStorage.getItem('cart')).length
     };
-  },
-  
-      
-  
-
+  }
 };
 </script>
 

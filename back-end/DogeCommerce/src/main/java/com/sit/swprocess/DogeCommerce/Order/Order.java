@@ -6,16 +6,22 @@ import com.sit.swprocess.DogeCommerce.OrderDetail.OrderDetail;
 import com.sit.swprocess.DogeCommerce.Payment.Payment;
 import com.sit.swprocess.DogeCommerce.Shipment.Shipment;
 import com.sit.swprocess.DogeCommerce.User.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order implements Serializable {
+
+    @Autowired
+    DecimalFormat decimalFormat;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -87,5 +93,15 @@ public class Order implements Serializable {
 
     public void setBuyer(User buyer) {
         this.buyer = buyer;
+    }
+
+    public long getPriceForOmise() {
+        long price = 0;
+        if (orderDetails != null) {
+            for(OrderDetail orderDetail: this.orderDetails) {
+                price +=  Long.parseLong(decimalFormat.format(orderDetail.getQuantity() * orderDetail.getPriceEach()));
+            }
+        }
+        return price + 3000;
     }
 }

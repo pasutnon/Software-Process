@@ -6,7 +6,8 @@
         <v-btn color="deep-orange darken-2" class="button-r" dark>ลงทะเบียน</v-btn>
         <v-spacer></v-spacer>
     </v-toolbar>
-    <v-toolbar id="orange-line" color="#F5580C" height="3.75px"></v-toolbar>
+    <v-progress-linear class="hr-1" value=100
+    color="#F5580C" height="3"></v-progress-linear>
 </div>
 </template>
 <script>
