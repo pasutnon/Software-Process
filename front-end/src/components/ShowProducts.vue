@@ -20,6 +20,8 @@
             </v-card>
           </v-flex>
         </div>
+      </b-row>
+    </b-container>
       </ul>
     </div>
 </template>
@@ -44,8 +46,6 @@ export default {
 
   created() {
     axios
-
-
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
