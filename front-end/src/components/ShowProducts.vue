@@ -47,27 +47,30 @@ export default {
   },
   methods:{
         addProductInCart: function (product){
-            let jsonCart = localStorage.getItem('cart')
-            if(!jsonCart) {
-                this.saveCart()
-                return
+            let localCart = localStorage.getItem('cart')
+
+            if(localCart === null) {
+              this.cart = []
+            } else {
+              this.cart = JSON.parse(localCart)
             }
-            let cart = JSON.parse(jsonCart)
-            let targetProduct = cart.find((cartProduct) => {
-                return product.productId === cartProduct.productId
+
+            let duplicateProductInCart = this.cart.find((eachItemInCart) => {
+                return product.productId === eachItemInCart.productId
             })
-            if(targetProduct) {
-                targetProduct.quantity += 1
-                this.cart = cart
+            if(duplicateProductInCart !== undefined) {
+                duplicateProductInCart.quantity += 1
+                // this.cart = cart
             }else {
                 product.quantity = 1
                 this.cart.push(product)
             }
             this.saveCart();
+            // this.cart = null
         },
         saveCart: function(){
             const parsed = JSON.stringify(this.cart);
-            localStorage.setItem('cart',parsed);
+            localStorage.setItem('cart', parsed);
         }
   }
 };
