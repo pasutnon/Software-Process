@@ -30,6 +30,10 @@ public class ProductService {
         return productRepository.findByProductName(productName);
     }
 
+    public List<Product> getAllProductByNameContaining(String productName) {
+        return productRepository.findByProductNameContaining(productName);
+    }
+
     public ProductImage getPathByProductId(Long product_id) {
 
         return productImageService.getPathByProductId(product_id);

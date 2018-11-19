@@ -33,6 +33,12 @@ public class ProductController {
         return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/products/name/containing/{name}")
+    public ResponseEntity<List<Product>> getAllProductsByNameContaining(@PathVariable("name") String name) {
+        List<Product> product = productService.getAllProductByNameContaining(name);
+        return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
+    }
+
     @RequestMapping(path = "/products/{product_id}/images")
     public ResponseEntity<ProductImage> getPathByProductId(@PathVariable("product_id") Long product_id) {
         ProductImage product_image = productService.getPathByProductId(product_id);
