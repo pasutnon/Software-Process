@@ -5,9 +5,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Address")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorValue(value="true")
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
 
     @NotNull

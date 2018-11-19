@@ -5,7 +5,8 @@
         <h4 class="text-nav">บัญชีของคุณ</h4>
         <v-spacer></v-spacer>
     </v-toolbar>
-    <v-toolbar id="orange-line" color="#F5580C" height="3.75px"></v-toolbar>
+    <v-progress-linear class="hr-1" value=100
+    color="#F5580C" height="3"></v-progress-linear>
 </div>
 </template>
 <script>

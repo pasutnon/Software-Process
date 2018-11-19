@@ -58,6 +58,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency> -->
+		<dependency>
+			<groupId>co.omise</groupId>
+			<artifactId>omise-java</artifactId>
+			<version>2.7.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

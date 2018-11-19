@@ -1,14 +1,20 @@
 <template>
 <div>
     <v-toolbar color="white" height="50.00px" card>
+        <v-btn icon :to="`${link}`" @click="setIsShowToolBar(true)">
+            <v-icon color="#F5580C">arrow_back</v-icon>
+        </v-btn>
         <v-spacer></v-spacer>
-        <h4 class="text-nav">{{link}}</h4>
+        <img src="../../assets/logo.png" width="100"/>
         <v-spacer></v-spacer>
+        <v-btn icon>
+            <v-icon></v-icon>
+        </v-btn>
     </v-toolbar>
-    <v-toolbar id="orange-line" color="#F5580C" height="3.75px"></v-toolbar>
 </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
     export default {
         name: "ProductDetailHeader",
         props:{
@@ -17,6 +23,9 @@
         data() {
             return {
             }
+        },
+        methods:{
+            ...mapActions(['setIsShowToolBar']),
         }
     }
 </script>
