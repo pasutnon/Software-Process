@@ -20,6 +20,8 @@
             </v-card>
           </v-flex>
         </div>
+      </b-row>
+    </b-container>
       </ul>
     </div>
 </template>
