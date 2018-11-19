@@ -28,6 +28,7 @@ import ProductImage from "./ProductImage";
 import axios from "axios";
 import numeral from "numeral";
 import vue from "vue";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ShowProducts",
@@ -36,8 +37,7 @@ export default {
   },
   data() {
     return {
-      products: [],
-      cart: []
+      products: []
     };
   },
 
@@ -46,36 +46,17 @@ export default {
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
+  computed: {
+    ...mapGetters(['cart'])
+  },
   methods: {
-    addProductInCart: function(product) {
-      let localCart = localStorage.getItem("cart");
-
-      if (localCart === null) {
-        this.cart = [];
-      } else {
-        this.cart = JSON.parse(localCart);
-      }
-
-      let duplicateProductInCart = this.cart.find(eachItemInCart => {
-        return product.productId === eachItemInCart.productId;
-      });
-      if (duplicateProductInCart !== undefined) {
-        duplicateProductInCart.quantity += 1;
-        // this.cart = cart
-      } else {
-        product.quantity = 1;
-        this.cart.push(product);
-      }
-      this.saveCart();
-      // this.cart = null
-    },
-    saveCart: function() {
-      const parsed = JSON.stringify(this.cart);
-      localStorage.setItem("cart", parsed);
-    }
+    ...mapMutations({
+      addProductInCart: 'addProductInToCart'
+    })
   }
 };
-vue.filter("formatNumber", function(value) {
+
+vue.filter("formatNumber", function (value) {
   return numeral(value).format("0,0");
 });
 </script>
