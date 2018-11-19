@@ -24,7 +24,7 @@
 
         <v-btn value="/cart" color="#F5580C" flat to="/cart" v-else>
           <v-badge color="red">
-            <span slot="badge">{{cart}}</span>
+            <span slot="badge">{{ totalItemInCart }}</span>
             <img src="../assets/Cart-Orange.svg" height="40"/>
           </v-badge>
         </v-btn>
@@ -37,12 +37,22 @@
 </template>
 
 <script>
+import { mapActions,mapGetters } from "vuex";
+import { sumTotalItem } from '../utils/cart.js';
+
 export default {
   data() {
     return {
-      menu: '',
-      cart: JSON.parse(localStorage.getItem('cart')).length
+      menu: ''
     };
+  },
+  computed:{
+    ...mapGetters(['totalItemInCart']),
+  },
+  mounted() {
+  },
+  methods: {
+    sumTotalItem,
   }
 };
 </script>

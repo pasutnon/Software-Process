@@ -7,9 +7,11 @@ import com.sit.swprocess.DogeCommerce.Payment.Payment;
 import com.sit.swprocess.DogeCommerce.Shipment.Shipment;
 import com.sit.swprocess.DogeCommerce.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -29,7 +31,7 @@ public class Order implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
     List<OrderDetail> orderDetails;
 
-    @NotNull
+    @Nullable
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     Payment payment;

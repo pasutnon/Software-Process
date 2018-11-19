@@ -18,42 +18,42 @@ export default new Router({
     {
       path: '/about',
       name: 'about',
-      component: function () { 
+      component: function () {
         return import('./views/About.vue')
       }
     },
     {
       path: '/cart',
       name: 'cart',
-      component: function () { 
+      component: function () {
         return import('./views/Cart.vue')
       }
     },
     {
       path: '/user',
       name: 'user',
-      component: function () { 
+      component: function () {
         return import('./views/User.vue')
       }
     },
     {
       path: '/product/detail/:productID',
       name: 'productDetail',
-      component: function () { 
+      component: function () {
         return import('./views/ProductDetail')
       }
     },
     {
       path: '/ShowProducts',
       name: 'ShowProducts',
-      component: function () { 
+      component: function () {
         return import('./components/ShowProducts')
       }
     },
     {
       path: '/search',
       name: 'search',
-      component: function () { 
+      component: function () {
         return import('./views/Search.vue')
       }
     },
@@ -66,6 +66,13 @@ export default new Router({
       path: '/order/:orderId/payment/complete',
       name: 'PaymentComplete',
       component: PaymentComplete
+    },
+    {
+      path: '/orderDetail',
+      name: 'OrderDetail',
+      component: function () {
+        return import('./views/OrderDetail.vue')
+      }
     }
   ]
 })
