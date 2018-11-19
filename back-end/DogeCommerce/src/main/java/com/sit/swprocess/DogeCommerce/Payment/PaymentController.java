@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/payments")
+@CrossOrigin
 public class PaymentController {
 
     @Autowired
@@ -39,7 +40,7 @@ public class PaymentController {
         Order order = orderService.getOrderByOrderId(orderId).get();
         ChargeResult chargeResult;
         try {
-            chargeResult = paymentService.chargeItem(token, order.getId(), order.getPriceForOmise());
+            chargeResult = paymentService.chargeItem(token, order.getId(), order.calculatePriceForOmise());
         } catch (Exception e) {
             throw new ChargeException(e.getMessage());
         }
