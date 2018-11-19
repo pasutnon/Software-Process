@@ -1,6 +1,10 @@
 <template>
   <div>
     <ProductDetailHeader link="/user"></ProductDetailHeader>
+    <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading1 || loading2"
+    color="#F5580C" height="3"></v-progress-linear>
+    <v-progress-linear class="hr-1" value=100 v-else
+    color="#F5580C" height="3"></v-progress-linear>
       <b-container>
         <b-row class="text-xs-center">
           <b-col cols="12">
@@ -37,7 +41,9 @@ import axios from "axios"
         return {
             productID: '',
             product:'',
-            productImage:''
+            productImage:'',
+            loading1:true,
+            loading2:true
         }
     },
     mounted () {
@@ -54,10 +60,12 @@ import axios from "axios"
       async getProductDetail(){
         const { data } = await axios.get(process.env.VUE_APP_DOGE_COMMERCE_SERVICE_URL+"/products/"+this.productID);
         this.product = data;
+        this.loading1 = false;
       },
       async getProductImage(){
         const { data } = await axios.get(process.env.VUE_APP_DOGE_COMMERCE_SERVICE_URL+"/products/"+this.productID+"/images");
         this.productImage = data;
+        this.loading2 = false;
       },
       addCart(){
 
@@ -85,6 +93,10 @@ import axios from "axios"
 }
 .box{
   background-color: white;
+}
+.hr-1 {
+  padding: 0px;
+  margin: 0px;
 }
 </style>
 
