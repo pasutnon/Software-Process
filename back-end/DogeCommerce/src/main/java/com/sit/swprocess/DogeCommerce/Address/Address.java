@@ -1,13 +1,19 @@
 package com.sit.swprocess.DogeCommerce.Address;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Address")
-public class Address {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorValue(value="true")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Address implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
 
     @NotNull
