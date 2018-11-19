@@ -82,6 +82,9 @@
 <script>
   import HomeHeader from '../components/header/HomeHeader.vue'
   import OmiseUtils from '../utils/omise.js'
+  import axios from '../utils/axios.js'
+  import qs from 'qs'
+
   export default {
     data() {
       return {
@@ -107,7 +110,24 @@
           expiration_year: expYear,
           security_code: this.form.cvvNumber,
         }
-        let omiseResponse = await OmiseUtils.createCardToken(cardInfo)
+        const tokenResponse = await OmiseUtils.createCardToken(cardInfo)
+        const cardToken = tokenResponse.response.id
+        const chargeFormData = new FormData()
+        chargeFormData.append('token', cardToken)
+        try {
+          const chargeResponse = await axios.post(
+            `/order/${this.$route.params.orderId}/payment`,
+            chargeFormData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+          )
+          window.location = chargeResponse.data.authorizedUrl
+        } catch (err) {
+          console.err(err)
+        }
       }
     }
   }
