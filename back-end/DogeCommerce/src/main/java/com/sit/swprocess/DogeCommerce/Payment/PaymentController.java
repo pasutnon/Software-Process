@@ -1,27 +1,35 @@
 package com.sit.swprocess.DogeCommerce.Payment;
 
-import co.omise.Client;
-import co.omise.ClientException;
-import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import com.sit.swprocess.DogeCommerce.Order.Order;
 import com.sit.swprocess.DogeCommerce.Order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.nio.charset.CharacterCodingException;
+import java.util.List;
 
 @RestController
+@RequestMapping(path = "/payments")
 public class PaymentController {
+
     @Autowired
     PaymentService paymentService;
 
     @Autowired
     OrderService orderService;
+
+    @GetMapping("")
+    public List<Payment> getAllPayments() {
+        return paymentService.getAllPayments();
+    }
+
+    @GetMapping("/{paymentId}")
+    public Payment getPaymentById(@PathVariable String paymentId) {
+        return paymentService.getPaymentById(paymentId);
+    }
 
     @PostMapping("/order/{order_id}/payment")
     public ResponseEntity<ChargeResult> createPayment(
@@ -38,6 +46,4 @@ public class PaymentController {
         ResponseEntity response = new ResponseEntity<ChargeResult>(chargeResult, HttpStatus.CREATED);
         return response;
     }
-
-    @GetMapping("/order/{order_id}")
 }

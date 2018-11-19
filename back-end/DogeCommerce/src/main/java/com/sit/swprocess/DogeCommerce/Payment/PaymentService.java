@@ -4,20 +4,30 @@ import co.omise.Client;
 import co.omise.ClientException;
 import co.omise.models.Charge;
 import co.omise.models.OmiseException;
-import com.sit.swprocess.DogeCommerce.Order.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import sun.awt.image.PNGImageDecoder;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PaymentService {
+
+    @Autowired
+    PaymentRepository paymentRepository;
 
     @Value("${frontend.url}")
     private String frontendURL;
 
-
     private Client omiseClient;
+
+    public Payment getPaymentById(String paymentId) {
+        return paymentRepository.getById(paymentId);
+    }
+
+    public List<Payment> getAllPayments() {
+        return paymentRepository.findAll();
+    }
 
     public PaymentService(String PUBLIC_KEY, String SECRET_KEY) throws ClientException {
         this.omiseClient = new Client(PUBLIC_KEY, SECRET_KEY);
