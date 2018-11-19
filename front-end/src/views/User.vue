@@ -18,6 +18,8 @@
     </div>
     <div class="text-xs-center" v-else>
         <AccoutHeader></AccoutHeader>
+        <v-progress-linear class="hr-1" value=100
+        color="#F5580C" height="3"></v-progress-linear>
     </div>
 </div>
 </template>
