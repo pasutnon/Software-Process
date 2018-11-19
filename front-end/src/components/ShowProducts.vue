@@ -1,29 +1,24 @@
 <template>
 <div>
-  <ul v-if="products && products.length">
-    <b-container>
-      <b-row>
-        <div v-for="product in products" :key="product">
-          <v-flex xs6 sm6 offset-sm3 style="text-align:center; margin:auto !important;">
-            <v-card>
-              <ProductImage :id="product.productId"/>
-              <v-card-title primary-title>
-              <div>
-                <h2 class="headline mb-0" >{{product.productName}}</h2>
-                <h2 class="headline mb-0" color="#F5580C">฿{{product.price | formatNumber}}</h2>
-              </div>
-            </v-card-title>
-
-            <v-card-actions>
-              <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
-            </v-card-actions>
-            </v-card>
+  <v-container
+          fluid
+          grid-list-md
+        >
+    <v-layout row wrap>
+          <v-flex xs6 v-if="products && products.length" v-for="product in products" :key="product" style="text-align:center; ">
+            <div>
+              <v-card>
+                <ProductImage :id="product.productId"/>
+                  <div>{{product.productName}}</div>
+                  <div color="#F5580C">฿{{product.price | formatNumber}}</div>
+                <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
+              </v-card>
+            </div>
           </v-flex>
-        </div>
-      </b-row>
-    </b-container>
-      </ul>
-    </div>
+    </v-layout>
+  </v-container>
+  </div>
+
 </template>
 
 <script>
@@ -46,36 +41,37 @@ export default {
 
   created() {
     axios
+
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
-  methods:{
-        addProductInCart: function (product){
-            let localCart = localStorage.getItem('cart')
+  methods: {
+    addProductInCart: function(product) {
+      let localCart = localStorage.getItem("cart");
 
-            if(localCart === null) {
-              this.cart = []
-            } else {
-              this.cart = JSON.parse(localCart)
-            }
+      if (localCart === null) {
+        this.cart = [];
+      } else {
+        this.cart = JSON.parse(localCart);
+      }
 
-            let duplicateProductInCart = this.cart.find((eachItemInCart) => {
-                return product.productId === eachItemInCart.productId
-            })
-            if(duplicateProductInCart !== undefined) {
-                duplicateProductInCart.quantity += 1
-                // this.cart = cart
-            }else {
-                product.quantity = 1
-                this.cart.push(product)
-            }
-            this.saveCart();
-            // this.cart = null
-        },
-        saveCart: function(){
-            const parsed = JSON.stringify(this.cart);
-            localStorage.setItem('cart', parsed);
-        }
+      let duplicateProductInCart = this.cart.find(eachItemInCart => {
+        return product.productId === eachItemInCart.productId;
+      });
+      if (duplicateProductInCart !== undefined) {
+        duplicateProductInCart.quantity += 1;
+        // this.cart = cart
+      } else {
+        product.quantity = 1;
+        this.cart.push(product);
+      }
+      this.saveCart();
+      // this.cart = null
+    },
+    saveCart: function() {
+      const parsed = JSON.stringify(this.cart);
+      localStorage.setItem("cart", parsed);
+    }
   }
 };
 vue.filter("formatNumber", function(value) {
