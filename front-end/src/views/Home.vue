@@ -1,5 +1,5 @@
 <template>
-<v-home style="text-align:center">
+<v-home style="text-align:center !important; magin:auto !important;">
   <div>
         <HomeHeader></HomeHeader>
   </div>

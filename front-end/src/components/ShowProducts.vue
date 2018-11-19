@@ -1,6 +1,8 @@
 <template>
-    <div>
-      <ul v-if="products && products.length">
+<div>
+  <ul v-if="products && products.length">
+    <b-container>
+      <b-row>
         <div v-for="product in products" :key="product">
           <v-flex xs6 sm6 offset-sm3 style="text-align:center; margin:auto !important;">
             <v-card>
@@ -42,6 +44,8 @@ export default {
 
   created() {
     axios
+
+
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },

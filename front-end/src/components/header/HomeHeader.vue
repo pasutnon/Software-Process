@@ -1,6 +1,5 @@
 <template>
-<logo>
-    <div>
+    <v-top>
         <v-toolbar color="white" height="50.00px" >
             <div style="text-align:center; margin:auto !important;">
                 <img src="../../assets/logo.png" width="100"/>
@@ -11,8 +10,7 @@
         </v-toolbar>
         <v-toolbar id="orange-line" color="#F5580C" height="3.75px">
         </v-toolbar>
-    </div>
-</logo>
+    </v-top>
 </template>
 
 <script>
@@ -25,10 +23,7 @@
     }
 </script>
 <style>
-top {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin-top: 0 !important;
+v-top {
+   float: initial;
 }
 </style>
