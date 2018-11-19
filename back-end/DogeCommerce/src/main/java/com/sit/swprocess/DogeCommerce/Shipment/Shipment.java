@@ -1,18 +1,12 @@
 package com.sit.swprocess.DogeCommerce.Shipment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sit.swprocess.DogeCommerce.Address.Address;
 import com.sit.swprocess.DogeCommerce.Address.ShipmentAddress;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -25,25 +19,28 @@ public class Shipment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private Double price;
 
-    @NotBlank
+    @Nullable
     private String trackingNumber;
 
     @OneToOne
     private ShipmentAddress address;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private ShipmentMethod shipmentMethod;
+
     public Shipment() {
     }
 
-    public Shipment(Long id, Double price, String trackingNumber, ShipmentAddress address) {
-        this.id = id;
+    public Shipment(@NotNull Double price, @NotNull String trackingNumber, ShipmentAddress address, ShipmentMethod shipmentMethod) {
         this.price = price;
         this.trackingNumber = trackingNumber;
         this.address = address;
+        this.shipmentMethod = shipmentMethod;
     }
-    
+
     public Long getId() {
         return this.id;
     }
