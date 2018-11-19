@@ -11,7 +11,6 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -28,7 +27,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
     List<OrderDetail> orderDetails;
 
     @Nullable
@@ -117,7 +116,8 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public long getPriceForOmise() {
+
+    public long calculatePriceForOmise() {
         long price = 0;
         if (orderDetails != null) {
             for(OrderDetail orderDetail: this.orderDetails) {

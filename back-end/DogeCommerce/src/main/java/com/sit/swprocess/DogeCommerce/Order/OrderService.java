@@ -44,13 +44,13 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByUserId(Long userId) {
-        User user = userService.getUserById(userId);
+        User user = userService.getUserById(userId).get();
         return orderRepository.findByBuyer(user);
     }
 
     public Order createOrder(Long userId, Map<String, Object> jsonOrder) {
         List<OrderDetail> orderDetails = (List<OrderDetail>) jsonOrder.get("orderDetails");
-        User buyer = userService.getUserById(userId);
+        User buyer = userService.getUserById(userId).get();
 //        Payment payment = paymentService.getPaymentById(jsonOrder.get("paymentId")+"");
         Payment payment = null;
         Long shipmentMethodId = Long.parseLong(jsonOrder.get("shipmentMethodId")+"");

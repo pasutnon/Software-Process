@@ -1,13 +1,16 @@
 package com.sit.swprocess.DogeCommerce.OrderDetail;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.swprocess.DogeCommerce.Order.Order;
 import com.sit.swprocess.DogeCommerce.Product.Product;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
-public class OrderDetail {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class OrderDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
