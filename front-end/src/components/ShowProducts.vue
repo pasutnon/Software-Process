@@ -5,6 +5,17 @@
           grid-list-md
         >
     <v-layout row wrap>
+<<<<<<< HEAD
+          <v-flex xs6 v-if="products && products.length" v-for="product in products" :key="product" style="text-align:center; ">
+            <div>
+              <v-card>
+                <ProductImage :id="product.productId"/>
+                  <div class="name">{{product.productName}}</div>
+                  <div class="price">฿{{product.price | formatNumber}}</div>
+                  <div class="addProduct">
+                    <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                  </div>
+=======
           <v-flex xs6 class="align-items-stretch" v-if="products && products.length" v-for="(product, index) in products" :key="index">
               <v-card class="d-flex" style="height: 100%">
                 <div class="align-self-center">
@@ -15,6 +26,7 @@
                   <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
                   </div>
                 </div>
+>>>>>>> 290906a034f0f2631c1a9d20c7d2febc1b0ec046
               </v-card>
           </v-flex>
     </v-layout>
@@ -78,4 +90,25 @@ color:#F5580C;
   text-align: right;
 }
 
+<<<<<<< HEAD
+<style>
+.name
+{
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+}
+.price
+{
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+  color: #F5580C;
+}
+.addProduct
+{
+  text-align: right;
+}
+=======
+>>>>>>> 290906a034f0f2631c1a9d20c7d2febc1b0ec046
 </style>
