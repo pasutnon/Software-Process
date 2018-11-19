@@ -10,11 +10,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.swprocess.DogeCommerce.Address.Address;
+import com.sit.swprocess.DogeCommerce.Address.ShipmentAddress;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "shipments")
-public class Shipment {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Shipment implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +32,12 @@ public class Shipment {
     private String trackingNumber;
 
     @OneToOne
-    @JoinColumn(name = "address_id", nullable = false)
-    @JsonIgnore
-    private Address address;
+    private ShipmentAddress address;
 
     public Shipment() {
     }
 
-    public Shipment(Long id, Double price, String trackingNumber, Address address) {
+    public Shipment(Long id, Double price, String trackingNumber, ShipmentAddress address) {
         this.id = id;
         this.price = price;
         this.trackingNumber = trackingNumber;
@@ -65,21 +68,11 @@ public class Shipment {
         this.trackingNumber = trackingNumber;
     }
     
-    public Address getAddress() {
+    public ShipmentAddress getShipmentAddress() {
         return this.address;
     }
     
-    public void setAddress(Address address) {
+    public void setAddress(ShipmentAddress address) {
         this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", price='" + getPrice() + "'" +
-            ", trackingNumber='" + getTrackingNumber() + "'" +
-            ", address='" + getAddress() + "'" +
-            "}";
     }
 }
