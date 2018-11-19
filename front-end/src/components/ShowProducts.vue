@@ -5,17 +5,17 @@
           grid-list-md
         >
     <v-layout row wrap>
-          <v-flex xs6 v-if="products && products.length" v-for="(product, index) in products" :key="index">
-            <div>
-              <v-card>
-                <ProductImage :id="product.productId"/>
+          <v-flex xs6 class="align-items-stretch" v-if="products && products.length" v-for="(product, index) in products" :key="index">
+              <v-card class="d-flex" style="height: 100%">
+                <div class="align-self-center">
+                  <ProductImage :id="product.productId"/>
                   <div class="product_name">{{product.productName}}</div>
                   <div class="product_price">฿{{product.price | formatNumber}}</div>
                   <div class="addProduct">
-                <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                  <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
                   </div>
+                </div>
               </v-card>
-            </div>
           </v-flex>
     </v-layout>
   </v-container>
