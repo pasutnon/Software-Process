@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="pb-5">
       <ul v-if="products && products.length">
         <div v-for="product in products" :key="product">
       <v-flex xs6 sm6 offset-sm3 style="text-align:center; margin:auto !important;">
       <v-card>
         <v-img
-          src="../../นมจืด ดัชมิลล์.png"
+          src=""
           aspect-ratio="1"
         ></v-img>
 
@@ -23,20 +23,21 @@
     </v-flex>
     </div>
     </ul>
-    </div>
+    <div class="pb-4"></div>
+  </div>
 </template>
 
 <script>
 import axios from "axios"
 import numeral from "numeral"
 import vue from "vue"
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: "ShowProducts",
   data() {
     return {
-      products: [],
-      cart: []
+      products: []
     };
   },
 
@@ -45,38 +46,19 @@ export default {
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
-  methods:{
-        addProductInCart: function (product){
-            let localCart = localStorage.getItem('cart')
-
-            if(localCart === null) {
-              this.cart = []
-            } else {
-              this.cart = JSON.parse(localCart)
-            }
-
-            let duplicateProductInCart = this.cart.find((eachItemInCart) => {
-                return product.productId === eachItemInCart.productId
-            })
-            if(duplicateProductInCart !== undefined) {
-                duplicateProductInCart.quantity += 1
-                // this.cart = cart
-            }else {
-                product.quantity = 1
-                this.cart.push(product)
-            }
-            this.saveCart();
-            // this.cart = null
-        },
-        saveCart: function(){
-            const parsed = JSON.stringify(this.cart);
-            localStorage.setItem('cart', parsed);
-        }
+  computed: {
+    ...mapGetters(['cart'])
+  },
+  methods: {
+    ...mapMutations({
+      addProductInCart: 'addProductInToCart'
+    })
   }
 };
-  vue.filter("formatNumber", function (value) {
-    return numeral(value).format("0,0");
-  });
+
+vue.filter("formatNumber", function (value) {
+  return numeral(value).format("0,0");
+});
 </script>
 <style scoped>
 </style>
