@@ -3,7 +3,6 @@
 
         <b-container>
             <b-list-group>
-                <b-list-group-item>user</b-list-group-item>
                 <b-list-group-item href="#some-link">
                     ที่อยู่การจัดส่ง<v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon> 
                 </b-list-group-item>
@@ -11,10 +10,16 @@
                     การจ่ายเงิน <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
                 </b-list-group-item>
                 <br/>
-                <b-list-group-item href="#some-link">
-                    รายการที่สั่งซื้อทั้งหมด <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
+                <b-list-group-item>
+                    ราคาสินค้า <v-text color="#F5580C" style="float: right;">฿39</v-text>
                 </b-list-group-item>
-                <v-btn color="deep-orange darken-2" style="width:auto" dark>ชำระเงินเดี๋ยวนี้</v-btn>
+                <b-list-group-item>
+                    ค่าจัดส่ง <v-text color="#F5580C" style="float: right;">฿39</v-text>
+                </b-list-group-item>
+                <br/>
+                <b-list-group-item>
+                    รวมทั้งสิ้น <v-text color="#F5580C" style="float: right;">฿39</v-text>
+                </b-list-group-item>
             </b-list-group>
         </b-container>
 </div>
