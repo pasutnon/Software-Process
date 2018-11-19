@@ -45,14 +45,26 @@ public class Order implements Serializable {
     @JsonIgnore
     User buyer;
 
+    @NotNull
+    String status;
+
     public Order() {
     }
 
-    public Order(List<OrderDetail> orderDetails, @NotNull Payment payment, @NotNull Shipment shipment, @NotNull User buyer) {
+    public Order(List<OrderDetail> orderDetails, @NotNull Payment payment, @NotNull Shipment shipment, @NotNull User buyer, @NotNull String status) {
         this.orderDetails = orderDetails;
         this.payment = payment;
         this.shipment = shipment;
         this.buyer = buyer;
+        this.status = status;
+    }
+
+    public DecimalFormat getDecimalFormat() {
+        return decimalFormat;
+    }
+
+    public void setDecimalFormat(DecimalFormat decimalFormat) {
+        this.decimalFormat = decimalFormat;
     }
 
     public Long getId() {
@@ -95,6 +107,14 @@ public class Order implements Serializable {
         this.buyer = buyer;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public long getPriceForOmise() {
         long price = 0;
         if (orderDetails != null) {
@@ -103,5 +123,18 @@ public class Order implements Serializable {
             }
         }
         return price + 3000;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "decimalFormat=" + decimalFormat +
+                ", id=" + id +
+                ", orderDetails=" + orderDetails +
+                ", payment=" + payment +
+                ", shipment=" + shipment +
+                ", buyer=" + buyer +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
