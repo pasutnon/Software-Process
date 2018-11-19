@@ -5,13 +5,15 @@
           grid-list-md
         >
     <v-layout row wrap>
-          <v-flex xs6 v-if="products && products.length" v-for="product in products" :key="product" style="text-align:center; ">
+          <v-flex xs6 v-if="products && products.length" v-for="(product, index) in products" :key="index">
             <div>
               <v-card>
                 <ProductImage :id="product.productId"/>
-                  <div>{{product.productName}}</div>
-                  <div color="#F5580C">฿{{product.price | formatNumber}}</div>
-                <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
+                  <div class="product_name">{{product.productName}}</div>
+                  <div class="product_price">฿{{product.price | formatNumber}}</div>
+                  <div class="addProduct">
+                <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                  </div>
               </v-card>
             </div>
           </v-flex>
@@ -41,7 +43,6 @@ export default {
 
   created() {
     axios
-
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
@@ -79,6 +80,21 @@ vue.filter("formatNumber", function(value) {
 });
 </script>
 
+<style>
+.product_name
+{font-size: 100%;
+margin-left: 5px;
+text-align: left;
+}
+.product_price
+{font-size: 100%;
+text-align: left;
+margin-left: 5px;
+color:#F5580C;
+}
+.addProduct
+{
+  text-align: right;
+}
 
-<style scoped>
 </style>
