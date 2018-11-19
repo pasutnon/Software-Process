@@ -1,0 +1,473 @@
+{
+	"info": {
+		"_postman_id": "732065a3-4154-4fb0-a5f9-99ca7951d31b",
+		"name": "DogeCommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "create order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "65a02e7f-b815-45eb-af1a-d9ed7f02542a",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"buyerId\": 1,\n\t\"orderDetails\": [],\n\t\"paymentId\": 1,\n\t\"shipmentMethodId\": 1,\n\t\"shipmentAddress\": {\n\t\t\"name\": \"My Addresss .inc\",\n\t\t\"address\": \"ssss\",\n\t\t\"district\": \"Bangbon\",\n\t\t\"state\": \"Bangbon\",\n\t\t\"province\": \"Nontaburi\",\n\t\t\"postcode\": \"10111\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/orders/",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get orders by user id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4e0299db-f257-4200-911c-0429bd712e4f",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/orders/user/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"orders",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get order by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ecbff17d-0542-4ec3-9a39-0209242bab05",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/orders/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "get all product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "049bcfaf-08b2-44d5-aa01-961f758438be",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/products",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "94d355d5-e2bb-4874-b5cf-0d938e583c8e",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/products/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get images by product id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b831f4ed-1fb7-496b-a2cc-1c44fffaa975",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/products/1/images",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"products",
+								"1",
+								"images"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "get user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a16ebea-1f82-470c-bd63-a3956dd962a3",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "db55fa0d-382b-4707-9f9e-d6dfa324a09d",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/users?email=flukemdc@gmail.com",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "flukemdc@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "59301b54-6727-40bb-aecf-24a9479fea5d",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"flukemdc@gmail.com\",\n\t\"password\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/signin",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "get all payments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b0e2cf6a-4d66-4ed2-8d3e-26159936a477",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/payments/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "create address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9125c1c-04f0-4af1-8aef-a50acb221bd4",
+								"exec": [
+									"pm.test(\"server should response with 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"พชรพล อภิธนพัฒน์\",\n\t\"address\": \"56\",\n\t\"state\": \"bangkok\",\n\t\"province\": \"bangkok\",\n\t\"postcode\": \"10150\",\n\t\"district\": \"bangbon\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/addresses/user/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"addresses",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user addresses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
