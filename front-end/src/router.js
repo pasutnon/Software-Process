@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Payment from './views/Payment.vue'
+import PaymentComplete from './views/PaymentComplete.vue'
 
 Vue.use(Router)
 
@@ -57,9 +58,14 @@ export default new Router({
       }
     },
     {
-      path: '/payment',
+      path: '/order/:orderId/payment',
       name: 'Payment',
       component: Payment
+    },
+    {
+      path: '/order/:orderId/payment/complete',
+      name: 'PaymentComplete',
+      component: PaymentComplete
     }
   ]
 })
