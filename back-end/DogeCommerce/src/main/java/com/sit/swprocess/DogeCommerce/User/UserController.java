@@ -16,12 +16,12 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+        User user = userService.getUserById(id).get();
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+    @GetMapping(path = "")
+    public ResponseEntity<User> getUserByEmail(@RequestParam(value = "email") String email) {
         Optional<User> user = userService.getUserByEmail(email);
         if(user.isPresent() == false) {
             throw new UserNotFoundException();
