@@ -20,11 +20,17 @@
         <AccoutHeader></AccoutHeader>
         <b-container>
             <b-list-group>
-                <b-list-group-item href="#some-link">user</b-list-group-item>
-                <b-list-group-item href="#some-link">ที่อยู่การจัดส่ง</b-list-group-item>
-                <b-list-group-item href="#some-link">การจ่ายเงิน</b-list-group-item>
+                <b-list-group-item>user</b-list-group-item>
+                <b-list-group-item href="#some-link">
+                    ที่อยู่การจัดส่ง<v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon> 
+                </b-list-group-item>
+                <b-list-group-item href="#some-link">
+                    การจ่ายเงิน <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
+                </b-list-group-item>
                 <br/>
-                <b-list-group-item href="#some-link" class="">รายการที่สั่งซื้อทั้งหมด</b-list-group-item>
+                <b-list-group-item href="#some-link">
+                    รายการที่สั่งซื้อทั้งหมด <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
+                </b-list-group-item>
                 <v-btn color="deep-orange darken-2" style="width:auto" dark>ออกจากระบบ</v-btn>
             </b-list-group>
         </b-container>
