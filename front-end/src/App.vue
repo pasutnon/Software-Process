@@ -7,21 +7,26 @@
 
 <script>
 import Navbar from './components/Navbar';
-import {mapGetters} from 'vuex'
-    export default {
-        name: 'app',
-        components: {
-            Navbar
-        },
-        computed: {
-            ...mapGetters(['getIsShowToolBar'])
-        },
-        mounted() {
-        },
-        data() {
-            return {
-                test:false
-            };
-        }
-    }
+import { mapGetters, mapMutations } from 'vuex'
+
+export default {
+  name: 'app',
+  components: {
+      Navbar
+  },
+  computed: {
+    ...mapGetters(['getIsShowToolBar'])
+  },
+  mounted() {
+    this.updateCartFromLocalStorage()
+  },
+  methods: {
+    ...mapMutations(['updateCartFromLocalStorage'])
+  },
+  data() {
+    return {
+      test:false
+    };
+  }
+}
 </script>
