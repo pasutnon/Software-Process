@@ -50,6 +50,13 @@ export default new Router({
       }
     },
     {
+      path: '/search',
+      name: 'search',
+      component: function () { 
+        return import('./views/Search.vue')
+      }
+    },
+    {
       path: '/payment',
       name: 'Payment',
       component: Payment
