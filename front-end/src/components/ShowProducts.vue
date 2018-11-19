@@ -6,14 +6,14 @@
         >
     <v-layout row wrap>
           <v-flex xs6 v-if="products && products.length" v-for="product in products" :key="product" style="text-align:center; ">
-            <v-card>
-              <ProductImage :id="product.productId"/>
-              <!-- <v-card primary-title> -->
-                <div class="mb-0" >{{product.productName}}</div>
-                <div class="mb-0" color="#F5580C">฿{{product.price | formatNumber}}</div>
-              <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
-              <!-- </v-card> -->
-            </v-card>
+            <div>
+              <v-card>
+                <ProductImage :id="product.productId"/>
+                  <div>{{product.productName}}</div>
+                  <div color="#F5580C">฿{{product.price | formatNumber}}</div>
+                <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
+              </v-card>
+            </div>
           </v-flex>
     </v-layout>
   </v-container>
