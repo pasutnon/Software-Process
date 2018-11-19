@@ -60,6 +60,13 @@ export default new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment
+    },
+    {
+      path: '/shipmentform',
+      name: 'ShipmentForm',
+      component: function () { 
+        return import('./views/ShipmentForm.vue')
+      }
     }
   ]
 })

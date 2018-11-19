@@ -7,7 +7,6 @@
 
 <script>
 import axios from "axios"
-import numeral from "numeral"
 
 export default {
   name: "ProductImage",

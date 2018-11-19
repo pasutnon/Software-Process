@@ -9,9 +9,11 @@
             <div>
               <v-card>
                 <ProductImage :id="product.productId"/>
-                  <div>{{product.productName}}</div>
-                  <div color="#F5580C">฿{{product.price | formatNumber}}</div>
-                <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
+                  <div class="name">{{product.productName}}</div>
+                  <div class="price">฿{{product.price | formatNumber}}</div>
+                  <div class="addProduct">
+                    <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                  </div>
               </v-card>
             </div>
           </v-flex>
@@ -80,5 +82,22 @@ vue.filter("formatNumber", function(value) {
 </script>
 
 
-<style scoped>
+<style>
+.name
+{
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+}
+.price
+{
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+  color: #F5580C;
+}
+.addProduct
+{
+  text-align: right;
+}
 </style>
