@@ -31,8 +31,7 @@
         name: 'cart',
         data(){
             return {
-                cart:[{
-                    }]
+                cart:[{}]
             }        
         },
         computed:{
@@ -55,7 +54,6 @@
                 localStorage.removeItem('cart');
             }
         }
-        
     },
     methods:{
         addProductInCart: function (product){

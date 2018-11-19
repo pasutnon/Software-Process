@@ -1,5 +1,6 @@
 package com.sit.swprocess.DogeCommerce.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.swprocess.DogeCommerce.Address.Address;
 import com.sit.swprocess.DogeCommerce.AuthenProvider.AuthenProvider;
@@ -27,6 +28,7 @@ public class User {
     String username;
 
     @NotNull
+    @JsonIgnore
     String password;
 
     @NotNull

@@ -1,5 +1,7 @@
 package com.sit.swprocess.DogeCommerce.Order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.swprocess.DogeCommerce.OrderDetail.OrderDetail;
 import com.sit.swprocess.DogeCommerce.Payment.Payment;
 import com.sit.swprocess.DogeCommerce.Shipment.Shipment;
@@ -8,12 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Order implements Serializable {
+
+    @Autowired
+    DecimalFormat decimalFormat;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -34,10 +42,8 @@ public class Order {
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     User buyer;
-
-    @Autowired
-    DecimalFormat decimalFormat;
 
     public Order() {
     }

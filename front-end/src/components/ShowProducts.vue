@@ -45,30 +45,33 @@ export default {
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
-  methods: {
-    addProductInCart: function(product) {
-      let jsonCart = localStorage.getItem("cart");
-      if (!jsonCart) {
-        this.saveCart();
-        return;
-      }
-      let cart = JSON.parse(jsonCart);
-      let targetProduct = cart.find(cartProduct => {
-        return product.productId === cartProduct.productId;
-      });
-      if (targetProduct) {
-        targetProduct.quantity += 1;
-        this.cart = cart;
-      } else {
-        product.quantity = 1;
-        this.cart.push(product);
-      }
-      this.saveCart();
-    },
-    saveCart: function() {
-      const parsed = JSON.stringify(this.cart);
-      localStorage.setItem("cart", parsed);
-    }
+  methods:{
+        addProductInCart: function (product){
+            let localCart = localStorage.getItem('cart')
+
+            if(localCart === null) {
+              this.cart = []
+            } else {
+              this.cart = JSON.parse(localCart)
+            }
+
+            let duplicateProductInCart = this.cart.find((eachItemInCart) => {
+                return product.productId === eachItemInCart.productId
+            })
+            if(duplicateProductInCart !== undefined) {
+                duplicateProductInCart.quantity += 1
+                // this.cart = cart
+            }else {
+                product.quantity = 1
+                this.cart.push(product)
+            }
+            this.saveCart();
+            // this.cart = null
+        },
+        saveCart: function(){
+            const parsed = JSON.stringify(this.cart);
+            localStorage.setItem('cart', parsed);
+        }
   }
 };
 vue.filter("formatNumber", function(value) {
