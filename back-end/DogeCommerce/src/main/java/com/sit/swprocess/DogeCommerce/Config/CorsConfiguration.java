@@ -1,4 +1,4 @@
-package com.sit.swprocess.DogeCommerce;
+package com.sit.swprocess.DogeCommerce.Config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
