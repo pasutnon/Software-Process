@@ -82,7 +82,4 @@ color:#F5580C;
 {
   text-align: right;
 }
-<<<<<<< HEAD
-=======
 </style>
->>>>>>> 1f1d336eeca9ed16eb59a473c5ea84d7420b93d7
