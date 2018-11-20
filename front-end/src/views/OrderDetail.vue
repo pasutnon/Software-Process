@@ -1,11 +1,10 @@
 <template>
 <div>
-    <OrderDetailHeader link="/cart"></OrderDetailHeader>
-    <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading1 || loading2"
-    color="#F5580C" height="3"></v-progress-linear>
-    <v-progress-linear class="hr-1" value=100 v-else
-    color="#F5580C" height="3"></v-progress-linear>
+    <OrderDetailHeader></OrderDetailHeader>
     <b-container>
+        <div v-for="(product) in cart" v-bind:key="product.ID">
+            <ProductImage :id="product.productId"/>
+        </div>
         <b-list-group>
             <b-list-group-item href="#some-link">
                 ที่อยู่การจัดส่ง<v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon> 
@@ -13,19 +12,20 @@
             <b-list-group-item href="#some-link">
                 การจ่ายเงิน <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
             </b-list-group-item>
-            <br/>
+            <div class="mb-3"></div>
             <b-list-group-item>
-                ราคาสินค้า <v-text color="#F5580C" style="float: right;">฿39</v-text>
+                รวมราคาสินค้า <v-text color="#F5580C" style="float: right;">฿ {{totalCartPrice | formatNumber}}</v-text>
             </b-list-group-item>
             <b-list-group-item>
-                ค่าจัดส่ง <v-text color="#F5580C" style="float: right;">฿39</v-text>
+                ค่าจัดส่ง <v-text color="#F5580C" style="float: right;">฿ {{DeliveryPrice | formatNumber}}</v-text>
             </b-list-group-item>
-            <br/>
+            <div class="mb-3"></div>
             <b-list-group-item>
-                รวมทั้งสิ้น <v-text color="#F5580C" style="float: right;">฿39</v-text>
+                รวมทั้งสิ้น <v-text color="#F5580C" style="float: right;">฿ {{totalCartPrice+DeliveryPrice | formatNumber}}</v-text>
             </b-list-group-item>
         </b-list-group>
     </b-container>
+    <br/><br/>
     <button class="btn-block button-add"> 
         ชำระเงินเดี๋ยวนี้
     </button>
@@ -34,17 +34,18 @@
 
 <script>
 import OrderDetailHeader from '../components/header/OrderDetailHeader';
-import { mapActions } from 'vuex'
+import ProductImage from "../components/ProductImage";
+import { mapActions,mapGetters } from 'vuex'
 import axios from "axios"
     export default {
         name: "OrderDetail",
         components: {
-            OrderDetailHeader
+            OrderDetailHeader,
+            ProductImage
         },
         data() {
             return {
-                loading1:true,
-                loading2:true
+                DeliveryPrice:40
             }
         },
         methods:{
@@ -52,6 +53,13 @@ import axios from "axios"
         },
         mounted () {
             this.setIsShowToolBar(false)
+        },
+        computed:{
+            ...mapGetters([
+            'totalItemInCart',
+            'totalCartPrice',
+            'cart'
+            ])
         }
     };
 </script>
