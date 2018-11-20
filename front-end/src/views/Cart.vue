@@ -17,9 +17,10 @@
                   <div class="product_name">{{product.productName}}</div>
                   <div class="product_price">฿{{product.price | formatNumber}}</div>
                   <div class="addProduct">
-                                  <v-btn @click="reduceProductInCart(product)">-</v-btn>
-                <v-btn @click="addProductInToCart(product)">+</v-btn>
-            <v-btn @click="removeProductInCart(product)">remove</v-btn>
+                  <button @click="reduceProductInCart(product)">-</button>
+                  {{product.quantity}}
+                  <button @click="addProductInToCart(product)">+</button>
+                  <!-- <button @click="removeProductInCart(product)">remove</button> -->
                   </div>
                 </div>
               </v-card>
@@ -30,10 +31,13 @@
 
     <div>
         <span>
-            <h2>Total Prices : {{ totalCartPrice }} Baht</h2>
+            <v-card style="color:F5580C;">รวมค่าสินค้า {{ totalCartPrice }} Baht</v-card>
             <h2>Total Products : {{ totalItemInCart }}</h2>
         </span>
 
+    </div>
+    <div class="col-7 text-right">
+            <b-button variant="danger"></b-button>
     </div>
     </div>
 </template>
@@ -68,5 +72,18 @@ components: {
   },
 };
 </script>
+<style>
+  button{
+    text-align: center;
+    margin: 2px !important;
+    width: 50px;
+    height: 25px;
+    color: white;
+    background-color:#F5580C; 
+
+  }
+</style>
+
+
 
 
