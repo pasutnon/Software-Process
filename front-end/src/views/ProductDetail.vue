@@ -2,9 +2,9 @@
   <div>
     <div class="hearder">
       <ProductDetailHeader></ProductDetailHeader>
-      <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading1 || loading2"
+      <v-progress-linear style="padding: 0px;margin: 0px;" :indeterminate="true" v-if="loading1 || loading2"
       color="#F5580C" height="3"></v-progress-linear>
-      <v-progress-linear class="hr-1" value=100 v-else
+      <v-progress-linear style="padding: 0px;margin: 0px;" value=100 v-else
       color="#F5580C" height="3"></v-progress-linear>
     </div>
     <br/><br/>
@@ -99,10 +99,6 @@ import axios from "../utils/axios.js"
 }
 .box{
   background-color: white;
-}
-.hr-1 {
-  padding: 0px;
-  margin: 0px;
 }
 .hearder{
   position: fixed;

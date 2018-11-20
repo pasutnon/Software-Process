@@ -17,11 +17,13 @@
                   <b-col cols="4">
                     <router-link :to="`/product/detail/${product.productId}`">
                       <div class="text-xs-center">
+                          <br/>
                         <ProductImage :id="product.productId"/>
                       </div>
                     </router-link>
                   </b-col>
                     <b-col cols="8">
+                      <br/>
                       <div class="product_name">{{product.productName}}</div>
                       <div class="addProduct">
                         <button @click="reduceProductInCart(product)">-</button>
@@ -59,7 +61,7 @@
 
 <script>
 import HomeHeader from '../components/header/HomeHeader';
-import { mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters, mapActions } from "vuex";
 import axios from "axios";
 import ProductImage from "../components/ProductImage";
 import numeral from "numeral";
@@ -79,12 +81,16 @@ export default {
     },
 
     methods: {
+    ...mapActions(['setIsShowToolBar']),
     ...mapMutations([
         "addProductInToCart",
         "reduceProductInCart",
         "removeProductInCart"
     ])
     },
+    mounted() {
+      this.setIsShowToolBar(true)
+    }
 };
 </script>
 <style>
