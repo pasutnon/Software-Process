@@ -1,77 +1,99 @@
 <template>
  
   <div>
+
     <div>
       <ShipmentHeader />
     </div>
 
     <div>
-        <v-flex xs10 offset-xs1>
-          <v-card>
-            <v-container>
-              <v-card-text>
-                  <v-form ref="form">
-                      <v-flex xs12 sm6 md3>
-                          <v-text-field
-                            label="name"
-                            placeholder="ชื่อผู้รับสินค้า"
+        <li>{{name}}</li>
+        <li>{{addresses}}</li>
+        <li>{{district}}</li>
+        <li>{{state}}</li>
+        <li>{{postCode}}</li>
+    </div>
+
+    <div> 
+        <v-dialog
+        v-model="dialog"
+        width="500"
+        >
+
+        <v-btn
+        slot="activator"
+        color="red"
+        dark
+        >
+          เพิ่มที่อยู่
+        </v-btn>
+        
+            <v-card>
+              <v-container>
+                <v-card-text>
+                    <v-form ref="form">
+                        <v-flex>
+                            <v-text-field
+                              v-model="name"
+                              label="name"
+                              placeholder="ชื่อผู้รับสินค้า"
+                              solo
+                            ></v-text-field>
+                        </v-flex>
+
+                        <v-flex>
+                            <v-text-field
+                              v-model="addresses"
+                              label="addresses"
+                              placeholder="อาคาร ถนน และอื่นๆ"
+                              solo
+                            ></v-text-field>
+                        </v-flex>
+
+                        <v-flex>
+                          <v-select
+                            :items="items"
+                            v-model="state"
+                            label="state"
+                            placeholder="จังหวัด"
                             solo
-                          ></v-text-field>
-                      </v-flex>
+                          ></v-select>
+                        </v-flex>
 
-                      <v-flex xs12 sm6 md3>
-                          <v-text-field
-                            label="phoneNumber"
-                            placeholder="เบอร์โทรศัพท์"
-                            solo
-                          ></v-text-field>
-                      </v-flex>
+                        <v-flex>
+                            <v-text-field
+                              v-model="district"
+                              label="district"
+                              placeholder="อำเภอ/เขต"
+                              solo
+                            ></v-text-field>
+                        </v-flex>
 
-                      <v-flex xs12 sm6 md3>
-                          <v-text-field
-                            label="addressDetail"
-                            placeholder="อาคาร ถนน และอื่นๆ"
-                            solo
-                          ></v-text-field>
-                      </v-flex>
+                        <v-flex>
+                            <v-text-field
+                              v-model="postCode"
+                              label="postCode"
+                              placeholder="รหัสไปรษณีย์"
+                              required
+                              solo
+                            ></v-text-field>
+                        </v-flex>
+                    </v-form>
+                </v-card-text>
 
-                      <v-flex xs12 sm6 md3>
-                        <v-select
-                          :items="items"
-                          label="state"
-                          placeholder="จังหวัด"
-                          solo
-                        ></v-select>
-                      </v-flex>
+                <v-layout justify-center>
+                  <v-btn
+                  color="#F5580C"
+                  @click="postPost();"
+                  >
+                    เพิ่มที่อยู่
+                  </v-btn>   
+                </v-layout>
 
-                      <v-flex xs12 sm6 md3>
-                          <v-text-field
-                            label="district"
-                            placeholder="อำเภอ/เขต"
-                            solo
-                          ></v-text-field>
-                      </v-flex>
-
-                      <v-flex xs12 sm6 md3>
-                          <v-text-field
-                            label="postCode"
-                            placeholder="รหัสไปรษณีย์"
-                            solo
-                          ></v-text-field>
-                      </v-flex>
-                
-                      <v-btn
-                        @click="submit"
-                      >
-                        submit
-                      </v-btn>
-                  </v-form>
-              </v-card-text>                
-          </v-container>
-        </v-card>
-      </v-flex>
-  </div>
-
+            </v-container>
+          </v-card>
+        </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -87,6 +109,16 @@ export default {
   },
   data() {
     return {
+      dialog: false,
+      address: {
+        name: String,
+        addresses: String,
+        state: String,
+        province: String,
+        postCode: String,
+        district: String
+      },
+      userId: String,
       items: [
         "กรุงเทพฯ",
         "กระบี่",
@@ -166,7 +198,29 @@ export default {
         "อุทัยธานี",
         "อุบลราชธานี"
       ]
-    };
+    }
+  },
+  methods: {
+    postPost() {
+      axios
+        .post("/addresses/user/" + userId, address)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    getAddress() {
+      axios
+        .get("/addresses/user/" + userId)
+        .then(response => {
+          this.address = response
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
-};
+}
 </script>

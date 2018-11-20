@@ -80,6 +80,13 @@ export default new Router({
       component: function () {
         return import('./views/OrderDetail.vue')
       }
+    },
+    {
+      path: '/shipmentform',
+      name: 'shipmentform',
+      component: function () {
+        return import('./views/ShipmentForm.vue')
+      }
     }
   ]
 })

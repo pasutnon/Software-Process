@@ -8,7 +8,9 @@
           <v-flex xs6 class="align-items-stretch" v-if="products && products.length" v-for="(product, index) in products" :key="index">
               <v-card class="d-flex" style="height: 100%">
                 <div class="align-self-center">
-                  <ProductImage :id="product.productId"/>
+                  <router-link :to="`/product/detail/${product.productId}`">
+                    <ProductImage :id="product.productId"/>
+                  </router-link>
                   <div class="product_name">{{product.productName}}</div>
                   <div class="product_price">฿{{product.price | formatNumber}}</div>
                   <div class="addProduct">
@@ -28,7 +30,7 @@ import ProductImage from "./ProductImage";
 import axios from "axios";
 import numeral from "numeral";
 import vue from "vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "ShowProducts",
@@ -40,16 +42,19 @@ export default {
       products: []
     };
   },
-
   created() {
     axios
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
+  mounted() {
+    this.setIsShowToolBar(true)
+  },
   computed: {
     ...mapGetters(['cart'])
   },
   methods: {
+    ...mapActions(['setIsShowToolBar']),
     ...mapMutations({
       addProductInCart: 'addProductInToCart'
     })
@@ -77,23 +82,7 @@ color:#F5580C;
 {
   text-align: right;
 }
-
-<style>
-.name
-{
-  font-size: 100%;
-  text-align: left;
-  margin-left: 5%;
-}
-.price
-{
-  font-size: 100%;
-  text-align: left;
-  margin-left: 5%;
-  color: #F5580C;
-}
-.addProduct
-{
-  text-align: right;
-}
+<<<<<<< HEAD
+=======
 </style>
+>>>>>>> 1f1d336eeca9ed16eb59a473c5ea84d7420b93d7
