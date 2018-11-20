@@ -161,7 +161,7 @@ import userUtils from '../utils/user.js'
                     shipmentMethodId: '1',
                     shipmentAddress: this.shipment
                 }
-                const orderResponse = (await axios.post(`/orders`, order)).data
+                const orderResponse = (await axios.post(`/orders/user/${userUtils.getUserId()}`, order)).data
                 this.processPayment(orderResponse.id)
             },
             processCheckout: async function () {
