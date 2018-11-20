@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="mb-5">
   <v-container
           fluid
           grid-list-md
@@ -78,4 +78,22 @@ color:#F5580C;
   text-align: right;
 }
 
+<style>
+.name
+{
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+}
+.price
+{
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+  color: #F5580C;
+}
+.addProduct
+{
+  text-align: right;
+}
 </style>

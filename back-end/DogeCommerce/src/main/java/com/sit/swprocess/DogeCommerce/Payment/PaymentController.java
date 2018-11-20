@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/payments")
+@CrossOrigin
 public class PaymentController {
 
     @Autowired
@@ -41,7 +42,7 @@ public class PaymentController {
         ChargeResult chargeResult;
         try {
             chargeResult = omisePaymentService.chargeItem(token, order.getId(), omisePaymentService.calculatePriceForOmise(order));
-
+            
             omisePayment.setLast4Digit(omisePaymentService.getLast4Digit(chargeResult.getChargeId()));
             omisePayment.setChargeId(chargeResult.getChargeId());
             omisePayment.setStatus("pending");
@@ -51,7 +52,7 @@ public class PaymentController {
         }
         order.setPayment(omisePayment);
         orderService.saveOrder(order);
-        ResponseEntity response = new ResponseEntity<ChargeResult>(chargeResult, HttpStatus.CREATED);
+        ResponseEntity<ChargeResult> response = new ResponseEntity<ChargeResult>(chargeResult, HttpStatus.CREATED);
         return response;
     }
 

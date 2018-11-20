@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.swprocess.DogeCommerce.Address.Address;
 import com.sit.swprocess.DogeCommerce.AuthenProvider.AuthenProvider;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,14 +21,15 @@ public class User {
 
     @OneToMany(
         cascade = CascadeType.ALL,
-        fetch = FetchType.LAZY
+        fetch = FetchType.LAZY,
+        targetEntity = Address.class
     )
     List<Address> addresses;
 
     @NotNull
     String username;
 
-    @NotNull
+    @Nullable
     @JsonIgnore
     String password;
 
@@ -40,7 +42,7 @@ public class User {
     @NotNull
     String lastname;
 
-    @NotNull
+    @Nullable
     String phone;
 
     @OneToMany(
@@ -52,7 +54,7 @@ public class User {
     public User() {
     }
 
-    public User(List<Address> addresses, @NotNull String username, @NotNull String password, @NotNull String email, @NotNull String firstname, @NotNull String lastname, @NotNull String phone, List<AuthenProvider> authenProviders) {
+    public User(List<Address> addresses, @NotNull String username, @Nullable String password, @NotNull String email, @NotNull String firstname, @NotNull String lastname, @Nullable String phone, List<AuthenProvider> authenProviders) {
         this.addresses = addresses;
         this.username = username;
         this.password = password;
@@ -87,11 +89,12 @@ public class User {
         this.username = username;
     }
 
+    @Nullable
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(@Nullable String password) {
         this.password = password;
     }
 
@@ -119,11 +122,12 @@ public class User {
         this.lastname = lastname;
     }
 
+    @Nullable
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(@Nullable String phone) {
         this.phone = phone;
     }
 

@@ -64,6 +64,14 @@ export default new Router({
     },
     {
       path: '/order/:orderId/payment/omise/complete',
+      path: '/shipmentform',
+      name: 'ShipmentForm',
+      component: function () { 
+        return import('./views/ShipmentForm.vue')
+      }
+    },
+    {
+      path: '/order/:orderId/payment/complete',
       name: 'PaymentComplete',
       component: PaymentComplete
     },
