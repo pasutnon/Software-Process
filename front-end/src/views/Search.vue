@@ -29,12 +29,14 @@
               <v-card class="d-flex" style="height: 100%">
                 <div class="align-self-center">
                   <router-link :to="`/product/detail/${product.productId}`">
-                    <ProductImage :id="product.productId"/>
+                    <div class="text-xs-center">
+                      <ProductImage :id="product.productId"/>
+                    </div>
                   </router-link>
                     <div class="product_name">{{product.productName}}</div>
                     <div class="product_price">฿{{product.price | formatNumber}}</div>
                     <div class="addProduct">
-                    <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                      <v-btn @click="addProductInCart(product)" color="#F5580C" ><img src="../assets/Cart-White.svg"></v-btn>
                     </div>
                 </div>
               </v-card>
@@ -48,7 +50,7 @@
 <script>
 import HomeHeader from "../components/header/HomeHeader";
 import ProductImage from "../components/ProductImage";
-import axios from "../utils/axios.js";
+import axios from "axios";
 import numeral from "numeral";
 import vue from "vue";
 import { mapActions,mapGetters, mapMutations } from "vuex";
@@ -76,7 +78,8 @@ export default {
       this.loading = true
       axios
         .get(
-          "/products/name/containing/" + this.name
+          "https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products/name/containing/" +
+            this.name
         )
         .then(response => {
           this.products = response.data; // JSON are parsed automatically.
@@ -106,9 +109,9 @@ export default {
 }
 .hearder{
   position: fixed;
-    top: 0;
-    width: 100%;
-    margin-top: 0 !important;
-    z-index: 100;
+  top: 0;
+  width: 100%;
+  margin-top: 0 !important;
+  z-index: 100;
 }
 </style>

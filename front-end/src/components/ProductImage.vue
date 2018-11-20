@@ -1,12 +1,12 @@
 <template>
         <img
           :src="path"
-        width="70%"/>      
+        width="70%" />      
 
 </template>
 
 <script>
-import axios from "../utils/axios.js"
+import axios from "axios"
 
 export default {
   name: "ProductImage",
@@ -21,7 +21,7 @@ export default {
 
   created() {
     axios
-    .get("/products/"+this.id+"/images")
+    .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products/"+this.id+"/images")
     .then(response => {
         console.log(response.data)
         return this.path = response.data.path
@@ -30,7 +30,3 @@ export default {
   methods:{}
 }
 </script>
-
-
-<style scoped>
-</style>
