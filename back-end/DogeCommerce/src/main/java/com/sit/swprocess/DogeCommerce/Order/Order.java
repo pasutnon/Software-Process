@@ -48,7 +48,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(List<OrderDetail> orderDetails, @NotNull Payment payment, @NotNull Shipment shipment, @NotNull User buyer, @NotNull String status) {
+    public Order(List<OrderDetail> orderDetails, @Nullable Payment payment, @NotNull Shipment shipment, @NotNull User buyer, @NotNull String status) {
         this.orderDetails = orderDetails;
         this.payment = payment;
         this.shipment = shipment;

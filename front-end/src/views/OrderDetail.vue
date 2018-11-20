@@ -44,7 +44,10 @@
                     จังหวัด <div class="float-right"><input class="text-right" type="text" size="26" placeholder="จังหวัด" v-model="shipment.province"></div>
                 </b-list-group-item>
                 <b-list-group-item>
-                    อำเภอ/เขต <div class="float-right"><input class="text-right" type="text" size="26" placeholder="อำเภอ/เขต" v-model="shipment.district"></div>
+                    อำเภอ/เขต <div class="float-right"><input class="text-right" type="text" size="26" placeholder="อำเภอ/เขต" v-model="shipment.state"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    แขวง <div class="float-right"><input class="text-right" type="text" size="26" placeholder="แขวง" v-model="shipment.district"></div>
                 </b-list-group-item>
                 <b-list-group-item>
                     รหัสไปรษณีย์ <div class="float-right"><input class="text-right" type="text" size="26" placeholder="รหัสไปรษณีย์" v-model="shipment.postcode"></div>
@@ -72,7 +75,7 @@
         </b-list-group>
     </b-container>
     
-    <button class="btn-block button-add p-3" style="background-color: #f5580c; color: white;"> 
+    <button class="btn-block button-add p-3" style="background-color: #f5580c; color: white;" @click="processCheckout()"> 
         ชำระเงินเดี๋ยวนี้
     </button>
 </div>
@@ -82,7 +85,9 @@
 import OrderDetailHeader from '../components/header/OrderDetailHeader';
 import ProductImage from "../components/ProductImage";
 import { mapActions,mapGetters } from 'vuex'
-import axios from "axios"
+import OmiseUtils from '../utils/omise.js'
+import axios from "../utils/axios.js"
+import userUtils from '../utils/user.js'
     export default {
         name: "OrderDetail",
         components: {
@@ -96,26 +101,28 @@ import axios from "axios"
                 DeliveryPrice: 40,
                 isSubmitted: false,
                 card: {
-                    number: '',
-                    holder: '',
-                    cvv: '',
+                    number: '4242424242424242',
+                    holder: 'Pureewat Kaewpoy',
+                    cvv: '424',
                     exp: {
-                        month: '',
-                        year: '',
+                        month: '11',
+                        year: '2020',
                     }
                 },
                 shipment: {
-                    name: '',
-                    address: '',
-                    district: '',
-                    province: '',
-                    postcode: ''
-                }
+                    name: 'Pureewat Kaewpoy',
+                    address: '54/35 Wutthakat Rd.',
+                    district: 'Bangkho',
+                    state: 'Chomthong',
+                    province: 'Bangkok',
+                    postcode: '10150'
+                },
+                orderId: null,
             }
         },
         methods:{
             ...mapActions(['setIsShowToolBar']),
-            processPayment: async function (element) {
+            processPayment: async function (orderId) {
                 this.isSubmitted = true
                 const cardInfo = {
                     name: this.card.holder,
@@ -126,22 +133,35 @@ import axios from "axios"
                 }
                 const tokenResponse = await OmiseUtils.createCardToken(cardInfo)
                 const cardToken = tokenResponse.response.id
-                const chargeFormData = new FormData()
-                chargeFormData.append('token', cardToken)
                 try {
-                    const chargeResponse = await axios.post(
-                        `/payments/order/${this.$route.params.orderId}/omise`,
-                        chargeFormData,
-                        {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
+                    const chargeResponse = await axios.post(`/payments/order/${orderId}/omise`, {
+                        token: cardToken
                     }
                 )
                 window.location = chargeResponse.data.authorizedUrl
                 } catch (err) {
                     console.log(err)
                 }
+            },
+            processOrder: async function () {
+                this.isSubmitted = true
+                const orderDetails = this.cart.map((item) => {
+                    return {
+                        productId: item.productId,
+                        quantity: item.quantity,
+                    }
+                })
+                const order = {
+                    buyerId: userUtils.getUserId(),
+                    orderDetails: orderDetails,
+                    shipmentMethodId: '1',
+                    shipmentAddress: this.shipment
+                }
+                const orderResponse = (await axios.post(`/orders`, order)).data
+                this.processPayment(orderResponse.id)
+            },
+            processCheckout: async function () {
+                this.processOrder()
             }
         },
         mounted () {

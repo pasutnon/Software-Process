@@ -67,29 +67,14 @@ public class UserController {
     }
 
     @PostMapping(path = "/signin/fb", produces = "application/json")
-    public ResponseEntity<String> signinWithFacebook(@RequestBody(required = true) Map<String, Object> jsonBody) {
+    public ResponseEntity<String> signinUsingFacebook(@RequestBody(required = true) Map<String, Object> jsonBody) {
         String facebookToken = jsonBody.get("token").toString();
-        String firstName = jsonBody.get("firstName").toString();
-        String lastName = jsonBody.get("lastName").toString();
+        String firstname = jsonBody.get("firstName").toString();
+        String lastname = jsonBody.get("lastName").toString();
         String email = jsonBody.get("email").toString();
-        User userFromEmail = userService.getUserByEmail(email).get();
-        if( userFromEmail == null ) {
-            User user = userService.getUserByFacebookToken(facebookToken);
-            if( user != null) {
-                String token = jwtService.encodeUser(user);
-                String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ user.getId() +"}";
-                return new ResponseEntity<String>(responseJson, HttpStatus.OK);
-            }else {
-                AuthenProvider authenProvider = new AuthenProvider("Facebook", facebookToken);
-                List<AuthenProvider> authenProviderList = new ArrayList<>();
-                authenProviderList.add(authenProvider);
-                user = new User(null, firstName, null, email, firstName, lastName, null, authenProviderList);
-                User newUser = userService.saveUser(user);
-
-                String token = jwtService.encodeUser(user);
-                String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ newUser.getId() +"}";
-                return new ResponseEntity<String>(responseJson, HttpStatus.OK);
-            }
+        String jsonSession = userService.signInWithFacebook(facebookToken, firstname, lastname, email);
+        if(jsonSession != null) {
+            return new ResponseEntity<String>(jsonSession, HttpStatus.OK);
         }else {
             return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
         }
@@ -100,7 +85,6 @@ public class UserController {
         String token = request.getHeader("Authorization");
         try {
             DecodedJWT jwt = jwtService.verify(token);
-            String payload = jwt.getPayload();
             Long userId = jwt.getClaim("id").asLong();
             User user = userService.getUserById(userId).get();
             
