@@ -26,7 +26,7 @@
                     <v-spacer></v-spacer>
                     <v-spacer></v-spacer>
                    <v-spacer></v-spacer>
-                  <v-btn class="addProduct" @click="addProductInCart(product)" color="#F5580C" ><img src="..\assets\Cart-White.svg"></v-btn>
+                  <v-btn class="addProduct" @click="addProductInCart(product)" color="#F5580C" ><img src="../assets/Cart-White.svg"></v-btn>
                   <v-spacer></v-spacer>
 
 
