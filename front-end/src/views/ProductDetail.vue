@@ -27,7 +27,7 @@
         <br/>
         <p class="body-2">{{product.productDetail}}</p>
       </b-container>
-      <button class="btn-block button-add" @click="addProductInCart(product)"> 
+      <button class="btn-block button-add" @click="addCart(product)"> 
         เพิ่มสินค้าลงตระกร้า
       </button>
   </div>
@@ -71,8 +71,9 @@ import axios from "axios"
         this.productImage = data;
         this.loading2 = false;
       },
-      addCart(){
-
+      addCart(product){
+        this.addProductInCart(product)
+        this.$swal('Add Product In Cart', 'Add '+product.productName , 'success');
       }
     }
   }
