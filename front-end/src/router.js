@@ -89,7 +89,7 @@ const router = new Router({
       },
     },
     {
-      path: '/order/summary',
+      path: '/order/detail',
       name: 'OrderDetail',
       component: function () {
         return import('./views/OrderDetail.vue')
