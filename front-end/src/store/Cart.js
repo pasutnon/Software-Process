@@ -49,6 +49,9 @@ export const Cart = {
       cart.splice(matchIndex, 1)
       state.cart = cart
       cartUtils.saveToLocalStorage(state.cart)
+    },
+    resetCart: (state) => {
+      state.cart = []
     }
   },
   getters: {
