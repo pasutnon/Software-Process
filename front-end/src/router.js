@@ -31,20 +31,6 @@ const router = new Router({
       }
     },
     {
-      path: '/PaymentSuccess/:orderId',
-      name: 'PaymentSuccess',
-      component: function () {
-        return import('./views/PaymentSuccess.vue')
-      }
-    },
-    {
-      path: '/PaymentUnsuccess',
-      name: 'PaymentUnsuccess',
-      component: function () {
-        return import('./views/PaymentUnsuccess.vue')
-      }
-    },
-    {
       path: '/user',
       name: 'user',
       component: function () {
