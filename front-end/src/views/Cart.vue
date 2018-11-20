@@ -8,19 +8,25 @@
           grid-list-md
         >
     <v-layout row wrap>
-          <v-flex xs6 class="align-items-stretch" v-for="(product, index) in cart" v-bind:key="index">
+          <v-flex xs12 class="align-items-stretch" v-for="(product, index) in cart" v-bind:key="index">
               <v-card class="d-flex" style="height: 100%">
                 <div class="align-self-center">
-                  <router-link :to="`/product/detail/${product.productId}`">
-                    <ProductImage :id="product.productId"/>
-                  </router-link>
-                  <div class="product_name">{{product.productName}}</div>
-                  <div class="product_price">฿{{product.price | formatNumber}}</div>
-                  <div class="addProduct">
-                                  <v-btn @click="reduceProductInCart(product)">-</v-btn>
-                <v-btn @click="addProductInToCart(product)">+</v-btn>
-            <v-btn @click="removeProductInCart(product)">remove</v-btn>
-                  </div>
+                    <b-row>
+                        <b-col cols="4">
+                          <router-link :to="`/product/detail/${product.productId}`">
+                            <ProductImage :id="product.productId"/>
+                          </router-link>
+                        </b-col>
+                            <b-col cols="8">
+                                <div class="product_name">{{product.productName}}</div>
+                                <div class="addProduct">
+                                    <button @click="reduceProductInCart(product)">-</button>
+                                        {{product.quantity}}
+                                    <button @click="addProductInToCart(product)">+</button>
+                                        <div class="product_price">฿{{product.price | formatNumber}}</div>
+                                </div>
+                            </b-col>
+                    </b-row>
                 </div>
               </v-card>
           </v-flex>
@@ -68,5 +74,15 @@ components: {
   },
 };
 </script>
+<style>
+    button{
+        text-align: center;
+        margin: 2px !important;
+        width: 50px;
+        height: 25px;
+        color: white;
+        background-color: #F5580C;
+    }
+</style>
 
 
