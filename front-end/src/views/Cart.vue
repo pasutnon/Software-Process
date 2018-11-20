@@ -9,7 +9,7 @@
           <v-progress-linear class="hr-1" value=100
                              color="#F5580C" height="3"></v-progress-linear>
       </div>
-      <br/><br/>
+      <br/><br/><br/>
       <v-container
           fluid
           grid-list-md
@@ -57,7 +57,7 @@
             </b-col>
         </b-row>
     </v-card>
-
+    <br/><br/><br/><br/><br/>
   </div>
 </template>
 
