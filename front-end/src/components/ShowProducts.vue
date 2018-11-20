@@ -11,11 +11,28 @@
                   <router-link :to="`/product/detail/${product.productId}`">
                     <ProductImage :id="product.productId"/>
                   </router-link>
+
+                 
+                    <v-layout justify-space-around>
+                      <v-spacer></v-spacer>
+                      <div>
                   <div class="product_name">{{product.productName}}</div>
+                    <br>
                   <div class="product_price">฿{{product.price | formatNumber}}</div>
-                  <div class="addProduct">
-                  <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
-                  </div>
+                   <br>
+                      </div>
+                  
+                  <!-- <div class="addProduct"> -->
+                    <v-spacer></v-spacer>
+                    <v-spacer></v-spacer>
+                   <v-spacer></v-spacer>
+                  <v-btn class="addProduct" @click="addProductInCart(product)" color="#F5580C" ><img src="..\assets\Cart-White.svg"></v-btn>
+                  <v-spacer></v-spacer>
+
+
+                  <!-- </div> -->
+                  </v-layout>
+
                 </div>
               </v-card>
           </v-flex>
@@ -65,17 +82,16 @@ vue.filter("formatNumber", function (value) {
 <style>
 .product_name
 {font-size: 100%;
-margin-left: 5px;
-text-align: left;
 }
 .product_price
 {font-size: 100%;
-text-align: left;
-margin-left: 5px;
 color:#F5580C;
 }
-.addProduct
+/* .addProduct
 {
-  text-align: right;
-}
+
+} */
+
 </style>
+
+
