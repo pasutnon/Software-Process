@@ -32,20 +32,26 @@
 								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImlkIjoyLCJleHAiOjE1NDMzMzQzMzMsImVtYWlsIjoiZmx1a2VtZGNAZ21haWwuY29tcyIsInVzZXJuYW1lIjoic2FuZHpvbmlnaHQifQ.q-hMOfaXn8ouv0sdEfmnB6BpnLhZgkrCFnGmIS7wD90",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"buyerId\": 1,\n\t\"orderDetails\": [],\n\t\"paymentId\": 1,\n\t\"shipmentMethodId\": 1,\n\t\"shipmentAddress\": {\n\t\t\"name\": \"My Addresss .inc\",\n\t\t\"address\": \"ssss\",\n\t\t\"district\": \"Bangbon\",\n\t\t\"state\": \"Bangbon\",\n\t\t\"province\": \"Nontaburi\",\n\t\t\"postcode\": \"10111\"\n\t}\n}"
+							"raw": "{\n\t\"buyerId\": 2,\n\t\"orderDetails\": [],\n\t\"paymentId\": null,\n\t\"shipmentMethodId\": 1,\n\t\"shipmentAddress\": {\n\t\t\"name\": \"My Addresss .inc\",\n\t\t\"address\": \"ssss\",\n\t\t\"district\": \"Bangbon\",\n\t\t\"state\": \"Bangbon\",\n\t\t\"province\": \"Nontaburi\",\n\t\t\"postcode\": \"10111\"\n\t}\n}"
 						},
 						"url": {
-							"raw": "{{API_URL}}/orders/",
+							"raw": "{{API_URL}}/orders/user/2",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"orders",
-								""
+								"user",
+								"2"
 							]
 						}
 					},
@@ -69,20 +75,26 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImlkIjoyLCJleHAiOjE1NDMzMzQzMzMsImVtYWlsIjoiZmx1a2VtZGNAZ21haWwuY29tcyIsInVzZXJuYW1lIjoic2FuZHpvbmlnaHQifQ.q-hMOfaXn8ouv0sdEfmnB6BpnLhZgkrCFnGmIS7wD90",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{API_URL}}/orders/user/1",
+							"raw": "{{API_URL}}/orders/user/2",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"orders",
 								"user",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -106,7 +118,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImlkIjoyLCJleHAiOjE1NDMzMzQzMzMsImVtYWlsIjoiZmx1a2VtZGNAZ21haWwuY29tcyIsInVzZXJuYW1lIjoic2FuZHpvbmlnaHQifQ.q-hMOfaXn8ouv0sdEfmnB6BpnLhZgkrCFnGmIS7wD90",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -347,7 +365,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"flukemdc@gmail.com\",\n\t\"password\": \"1234\"\n}"
+							"raw": "{\n\t\"username\": \"flukemdc@gmail.coms\",\n\t\"password\": \"1234\"\n}"
 						},
 						"url": {
 							"raw": "{{API_URL}}/users/signin",
@@ -357,6 +375,34 @@
 							"path": [
 								"users",
 								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImlkIjoyLCJleHAiOjE1NDMzMTY0NTYsImVtYWlsIjoiZmx1a2VtZGNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJzYW5kem9uaWdodCJ9.oie6LPXHM4anMpj3BDxhOdWBsPCDr1qQLbOYuiBBraM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/me",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
 							]
 						}
 					},
@@ -391,13 +437,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{API_URL}}/payments/1",
+							"raw": "{{API_URL}}/payments",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
-								"payments",
-								"1"
+								"payments"
 							]
 						}
 					},
@@ -432,6 +477,11 @@
 								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImlkIjoyLCJleHAiOjE1NDMzMzQzMzMsImVtYWlsIjoiZmx1a2VtZGNAZ21haWwuY29tcyIsInVzZXJuYW1lIjoic2FuZHpvbmlnaHQifQ.q-hMOfaXn8ouv0sdEfmnB6BpnLhZgkrCFnGmIS7wD90",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -462,7 +512,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": ""
+							"raw": "{{API_URL}}/addresses/user/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"addresses",
+								"user",
+								"1"
+							]
 						}
 					},
 					"response": []
