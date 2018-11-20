@@ -29,12 +29,14 @@
               <v-card class="d-flex" style="height: 100%">
                 <div class="align-self-center">
                   <router-link :to="`/product/detail/${product.productId}`">
-                    <ProductImage :id="product.productId"/>
+                    <div class="text-xs-center">
+                      <ProductImage :id="product.productId"/>
+                    </div>
                   </router-link>
                     <div class="product_name">{{product.productName}}</div>
                     <div class="product_price">฿{{product.price | formatNumber}}</div>
                     <div class="addProduct">
-                    <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                      <v-btn @click="addProductInCart(product)" color="#F5580C" ><img src="../assets/Cart-White.svg"></v-btn>
                     </div>
                 </div>
               </v-card>
@@ -107,9 +109,9 @@ export default {
 }
 .hearder{
   position: fixed;
-    top: 0;
-    width: 100%;
-    margin-top: 0 !important;
-    z-index: 100;
+  top: 0;
+  width: 100%;
+  margin-top: 0 !important;
+  z-index: 100;
 }
 </style>

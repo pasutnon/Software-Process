@@ -82,7 +82,7 @@
 import OrderDetailHeader from '../components/header/OrderDetailHeader';
 import ProductImage from "../components/ProductImage";
 import { mapActions,mapGetters } from 'vuex'
-import axios from "../utils/axios.js"
+import axios from "axios"
     export default {
         name: "OrderDetail",
         components: {
