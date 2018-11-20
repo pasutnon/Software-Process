@@ -1,4 +1,6 @@
 # The things you need to install
+### -Web Doge Shop
+ Go to this link "https://doge-commerce.mybluemix.net"
 ### -Maven
 Go to this link "https://maven.apache.org/download.cgi#" and download "apache-maven-3.6.0-bin.zip"
 ### -Java
