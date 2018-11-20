@@ -1,23 +1,24 @@
 <template>
 <div>
   <div>
-    <HomeHeader></HomeHeader>
-    <br>
-    <div class="searchform">
-      <v-toolbar color="white" height="50.00px" card>
-        <v-spacer></v-spacer>
-          <input class="input"
-          v-model="name"
-          placeholder="  ค้นหาเลยไหม ?"
-          @keyup.enter="searchProducts()"/>
+  <div class="hearder">
+      <div class="searchform">
+        <v-toolbar color="white" height="50.00px" card>
           <v-spacer></v-spacer>
-      </v-toolbar>
-      <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading"
-      color="#F5580C" height="3"></v-progress-linear>
-      <v-progress-linear class="hr-1" value=100 v-else
-      color="#F5580C" height="3"></v-progress-linear>
+            <input class="input"
+            v-model="name"
+            placeholder="  ค้นหาเลยไหม ?"
+            @keyup.enter="searchProducts()"/>
+            <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading"
+        color="#F5580C" height="3"></v-progress-linear>
+        <v-progress-linear class="hr-1" value=100 v-else
+        color="#F5580C" height="3"></v-progress-linear>
+      </div>
     </div>
-  </div>  
+  </div>
+  <br/><br/>    
   <div class="mb-5">
     <v-container
       fluid
@@ -103,5 +104,12 @@ export default {
   inset 0 0 0 2px #F5580C;
   color:#F5580C;
   font-size: 1.4em;
+}
+.hearder{
+  position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 0 !important;
+    z-index: 100;
 }
 </style>

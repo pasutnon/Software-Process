@@ -1,10 +1,13 @@
 <template>
   <div>
-    <ProductDetailHeader></ProductDetailHeader>
-    <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading1 || loading2"
-    color="#F5580C" height="3"></v-progress-linear>
-    <v-progress-linear class="hr-1" value=100 v-else
-    color="#F5580C" height="3"></v-progress-linear>
+    <div class="hearder">
+      <ProductDetailHeader></ProductDetailHeader>
+      <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading1 || loading2"
+      color="#F5580C" height="3"></v-progress-linear>
+      <v-progress-linear class="hr-1" value=100 v-else
+      color="#F5580C" height="3"></v-progress-linear>
+    </div>
+    <br/><br/>
       <b-container>
         <b-row class="text-xs-center">
           <b-col cols="12">
@@ -97,6 +100,13 @@ import axios from "axios"
 .hr-1 {
   padding: 0px;
   margin: 0px;
+}
+.hearder{
+  position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 0 !important;
+    z-index: 100;
 }
 </style>
 
