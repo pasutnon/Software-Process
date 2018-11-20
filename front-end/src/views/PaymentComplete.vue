@@ -8,7 +8,7 @@
       <div v-else class="text-center">
         <div v-if="isComplete">
           <p style="color:#F5580C; text-align:center; font-size:30px;">"การจ่ายเงินสำเร็จ"</p>
-          <p style="color:#F5580C; text-align:center; font-size:20px;">เลขบิล : {{ orderId }}</p>
+          <p style="color:#F5580C; text-align:center; font-size:20px;">เลขบิล : {{ $route.params.orderId }}</p>
         </div>
         <div v-else>
           <p style="color:#F5580C;  text-align:center; font-size:30px;">"การจ่ายเงินไม่สำเร็จ"</p>
@@ -24,7 +24,7 @@
 <script>
 import HomeHeader from '../components/header/HomeHeader.vue'
 import axios from '../utils/axios.js'
-import { mapActions,mapGetters } from "vuex";
+import { mapActions,mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -42,6 +42,7 @@ export default {
       const paymentResponse = await axios.get(`/payments/order/${this.$route.params.orderId}/omise`)
       this.isComplete = paymentResponse.data.status === "paid"
       this.isWait = false
+      this.resetCart()
     } catch (err) {
       this.isComplete = false   
       this.isWait = false
@@ -49,6 +50,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['resetCart']),
     ...mapActions(['setIsShowToolBar']),
   }
 }
