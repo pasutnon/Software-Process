@@ -1,6 +1,6 @@
 <template>
   <div>
-      <div>
+      <div class="hearder">
           <v-toolbar color="white" height="50.00px" card>
               <v-spacer></v-spacer>
               <h4>รถเข็น</h4>
@@ -9,6 +9,7 @@
           <v-progress-linear class="hr-1" value=100
                              color="#F5580C" height="3"></v-progress-linear>
       </div>
+      <br/><br/>
       <v-container
           fluid
           grid-list-md
@@ -43,13 +44,21 @@
 
 
     <div>
-        <span>
-            <h2>รวม ฿ {{ totalCartPrice | formatNumber }}</h2>
-            <h2>ชำระเงิน {{ totalItemInCart | formatNumber }}</h2>
-        </span>
+        <b-row>
+            <b-col cols="8">
+                <h2>รวม ฿ {{ totalCartPrice | formatNumber }}</h2>
+            </b-col>
+            <b-col cols="4">
+                <div class="text-xs-right">
+                    <router-link to="orderDetail">
+                        <v-btn>ชำระเงิน ({{ totalItemInCart | formatNumber }})</v-btn>
+                    </router-link>
+                </div>
+            </b-col>
+        </b-row>
+    </div>
 
-    </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -95,6 +104,13 @@ button{
     border: 2px solid orangered;
     padding: 0px;
     margin: 0px;
+}
+.hearder{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 0 !important;
+    z-index: 100;
 }
 </style>
 
