@@ -83,7 +83,7 @@ public class OrderService {
 
         User buyer = userService.getUserById(userId).get();
         Payment payment = null;
-        Long shipmentMethodId = Long.parseLong((String) jsonOrder.get("shipmentMethodId"));
+        Long shipmentMethodId = Long.parseLong(jsonOrder.get("shipmentMethodId").toString());
         ShipmentMethod shipmentMethod = shipmentMethodService.getShipmentMethodByShipmentMethodId(shipmentMethodId);
         ShipmentAddress shipmentAddress = shipmentAddressService.saveShipmentAddress(this.makeShipmentAddressModelFromMap((Map<String, Object>)jsonOrder.get("shipmentAddress")));
 
