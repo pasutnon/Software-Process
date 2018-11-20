@@ -5,6 +5,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.sit.swprocess.DogeCommerce.User.JwtService;
 import com.sit.swprocess.DogeCommerce.User.User;
 import com.sit.swprocess.DogeCommerce.User.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -28,32 +30,38 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     UserService userService;
 
+    Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
+
     public AuthInterceptor() {
         super();
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-        System.out.println(pathVariables);
-        System.out.println("interceppp");
+        logger.info(AuthInterceptor.class.getSimpleName() + " START handling");
+        logger.info("Incoming Request: "+request.getRequestURI()+" with Path variables: "+ pathVariables);
         String token = request.getHeader("Authorization");
         try {
-            DecodedJWT jwt = jwtService.verify(token);
-            Optional<User> incomingUserOptional = userService.getUserById(Long.parseLong(pathVariables.get("userId")));
-            User jwtUser = userService.getUserById(jwt.getClaim("id").asLong()).get();
-            if( incomingUserOptional.isPresent() ) {
-                User incomingUser = incomingUserOptional.get();
-                if(jwtUser.getId() == incomingUser.getId()) {
-                    return true;
+            if( pathVariables.isEmpty() == false && pathVariables.containsKey("userId")) {
+                DecodedJWT jwt = jwtService.verify(token);
+                Optional<User> incomingUserOptional = userService.getUserById(Long.parseLong(pathVariables.get("userId")));
+                User jwtUser = userService.getUserById(jwt.getClaim("id").asLong()).get();
+                if( incomingUserOptional.isPresent() ) {
+                    User incomingUser = incomingUserOptional.get();
+                    if(jwtUser.getId() == incomingUser.getId()) {
+                        return true;
+                    }
                 }
+            }else {
+                return true;
             }
         }catch(JWTVerificationException jwte) {
             jwte.printStackTrace();
-            response.sendError(403);
-            return false;
         }
-        return super.preHandle(request, response, handler);
+        response.sendError(403);
+        return false;
     }
 
     @Override
@@ -64,6 +72,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         super.afterCompletion(request, response, handler, ex);
+        logger.info(AuthInterceptor.class.getSimpleName()+" END handling");
     }
 
     @Override
