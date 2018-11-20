@@ -1,8 +1,14 @@
 <template>
   <div>
-  <div>
-        <HomeHeader></HomeHeader>
-  </div>
+      <div>
+          <v-toolbar color="white" height="50.00px" card>
+              <v-spacer></v-spacer>
+              <h4>รถเข็น</h4>
+              <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-progress-linear class="hr-1" value=100
+                             color="#F5580C" height="3"></v-progress-linear>
+      </div>
       <v-container
           fluid
           grid-list-md
@@ -14,7 +20,9 @@
                     <b-row>
                         <b-col cols="4">
                           <router-link :to="`/product/detail/${product.productId}`">
-                            <ProductImage :id="product.productId"/>
+                              <div class="text-xs-center">
+                                <ProductImage :id="product.productId"/>
+                              </div>
                           </router-link>
                         </b-col>
                             <b-col cols="8">
@@ -23,7 +31,7 @@
                                     <button @click="reduceProductInCart(product)">-</button>
                                         {{product.quantity}}
                                     <button @click="addProductInToCart(product)">+</button>
-                                        <div class="product_price">฿{{product.price | formatNumber}}</div>
+                                        <div class="product_price">฿ {{product.price | formatNumber}}</div>
                                 </div>
                             </b-col>
                     </b-row>
@@ -36,8 +44,8 @@
 
     <div>
         <span>
-            <h2>Total Prices : {{ totalCartPrice }} Baht</h2>
-            <h2>Total Products : {{ totalItemInCart }}</h2>
+            <h2>รวม ฿ {{ totalCartPrice | formatNumber }}</h2>
+            <h2>ชำระเงิน {{ totalItemInCart | formatNumber }}</h2>
         </span>
 
     </div>
@@ -75,14 +83,19 @@ components: {
 };
 </script>
 <style>
-    button{
-        text-align: center;
-        margin: 2px !important;
-        width: 50px;
-        height: 25px;
-        color: white;
-        background-color: #F5580C;
-    }
+button{
+    text-align: center;
+    margin: 2px !important;
+    width: 25px;
+    height: 25px;
+    color: white;
+    background-color: #F5580C;
+}
+.hr-1 {
+    border: 2px solid orangered;
+    padding: 0px;
+    margin: 0px;
+}
 </style>
 
 
