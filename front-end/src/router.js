@@ -63,6 +63,7 @@ export default new Router({
       component: Payment
     },
     {
+<<<<<<< Updated upstream
       path: '/shipmentform',
       name: 'ShipmentForm',
       component: function () { 
@@ -71,6 +72,9 @@ export default new Router({
     },
     {
       path: '/order/:orderId/payment/omise/complete',
+=======
+      path: '/order/:orderId/payment/complete',
+>>>>>>> Stashed changes
       name: 'PaymentComplete',
       component: PaymentComplete
     },
