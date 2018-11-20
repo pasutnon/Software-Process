@@ -72,26 +72,27 @@ public class UserController {
         String firstName = jsonBody.get("firstName").toString();
         String lastName = jsonBody.get("lastName").toString();
         String email = jsonBody.get("email").toString();
-        Optional<User> userOptional = userService.getUserByEmail(email);
-        if(userOptional.isPresent() == false) {
-            AuthenProvider authenProvider = new AuthenProvider("Facebook", facebookToken);
-            List<AuthenProvider> authenProviderList = new ArrayList<>();
-            authenProviderList.add(authenProvider);
-            User user = new User(null, firstName, null, email, firstName, lastName, null, authenProviderList);
-            User newUser = userService.saveUser(user);
-
-            String token = jwtService.encodeUser(user);
-            String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ newUser.getId() +"}";
-            return new ResponseEntity<String>(responseJson, HttpStatus.OK);
-        }else {
+        User userFromEmail = userService.getUserByEmail(email).get();
+        if( userFromEmail == null ) {
             User user = userService.getUserByFacebookToken(facebookToken);
             if( user != null) {
                 String token = jwtService.encodeUser(user);
                 String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ user.getId() +"}";
                 return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+            }else {
+                AuthenProvider authenProvider = new AuthenProvider("Facebook", facebookToken);
+                List<AuthenProvider> authenProviderList = new ArrayList<>();
+                authenProviderList.add(authenProvider);
+                user = new User(null, firstName, null, email, firstName, lastName, null, authenProviderList);
+                User newUser = userService.saveUser(user);
+
+                String token = jwtService.encodeUser(user);
+                String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ newUser.getId() +"}";
+                return new ResponseEntity<String>(responseJson, HttpStatus.OK);
             }
+        }else {
+            return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
     }
 
     @GetMapping(path = "/me")
@@ -102,7 +103,7 @@ public class UserController {
             String payload = jwt.getPayload();
             Long userId = jwt.getClaim("id").asLong();
             User user = userService.getUserById(userId).get();
-
+            
             String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ user.getId() +"}";
             return new ResponseEntity<String>(responseJson, HttpStatus.OK);
         }catch (JWTVerificationException jwte) {

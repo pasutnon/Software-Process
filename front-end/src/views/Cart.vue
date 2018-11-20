@@ -43,34 +43,31 @@
 </template>
 
 <script>
-import HomeHeader from '../components/header/HomeHeader';
 import { mapMutations, mapGetters } from "vuex";
-import axios from "axios";
-import ProductImage from "../components/ProductImage";
-import numeral from "numeral";
-import vue from "vue";
-export default {
-components: {
-    ProductImage,
-    HomeHeader,
-  },
-  // name: 'cart',
-  data() {
-    return {
-    };
-  },
-  computed: {
-    ...mapGetters(["totalItemInCart", "totalCartPrice", "cart"])
-  },
 
-  methods: {
-    ...mapMutations([
-      "addProductInToCart",
-      "reduceProductInCart",
-      "removeProductInCart"
+export default {
+  // name: 'cart',
+  data(){
+    return {
+    }        
+  },
+  computed:{
+    ...mapGetters([
+      'totalItemInCart',
+      'totalCartPrice',
+      'cart'
     ])
   },
-};
+  mounted(){
+  },
+  methods:{
+    ...mapMutations([
+      'addProductInToCart',
+      'reduceProductInCart',
+      'removeProductInCart',
+    ])
+  }
+}
 </script>
 <style>
   button{
