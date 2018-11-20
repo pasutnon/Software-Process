@@ -2,9 +2,18 @@
 <div>
     <OrderDetailHeader></OrderDetailHeader>
     <b-container>
-        <div v-for="(product) in cart" v-bind:key="product.ID">
-            <ProductImage :id="product.productId"/>
-        </div>
+        <v-list v-for="(product) in cart" v-bind:key="product.ID">
+            <b-row>
+                <b-col cols="6" class="text-xs-center">
+                    <ProductImage :id="product.productId"/>
+                </b-col>
+                <b-col cols="6">
+                    <div class="mb-3"></div>
+                    <p>{{product.productName}}</p>
+                    <p style="color:#F5580C;">{{product.quantity | formatNumber}} x ฿ {{product.price | formatNumber}}</p>
+                </b-col>
+            </b-row>
+        </v-list>
         <b-list-group>
             <b-list-group-item href="#some-link">
                 ที่อยู่การจัดส่ง<v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon> 
