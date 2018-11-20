@@ -24,7 +24,7 @@
                 <ProductImage :id="product.productId"/>
                   <div>{{product.productName}}</div>
                   <div color="#F5580C">฿{{product.price | formatNumber}}</div>
-                <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
+                <v-btn @click="addProductInToCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
               </v-card>
             </div>
           </v-flex>
@@ -57,6 +57,7 @@ export default {
       };
     },
     methods: {
+      ...mapMutations(['addProductInToCart']),
       /* eslint-disable no-console */
       searchProducts: function() {
         axios
