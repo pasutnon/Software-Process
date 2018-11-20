@@ -15,7 +15,8 @@ import java.util.Date;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Payment implements Serializable {
     @Id
-    String id;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private long id;
 
     @NotNull
     private String status;
@@ -33,18 +34,18 @@ public class Payment implements Serializable {
     public Payment() {
     }
 
-    public Payment(String id, @NotNull String status, Date createAt, Date updateAt) {
+    public Payment(long id, @NotNull String status, Date createAt, Date updateAt) {
         this.id = id;
         this.status = status;
         this.createAt = createAt;
         this.updateAt = updateAt;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

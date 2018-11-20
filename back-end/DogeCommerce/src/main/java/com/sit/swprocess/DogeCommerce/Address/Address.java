@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Address")
+@Table(name = "addresses")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorValue(value="true")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

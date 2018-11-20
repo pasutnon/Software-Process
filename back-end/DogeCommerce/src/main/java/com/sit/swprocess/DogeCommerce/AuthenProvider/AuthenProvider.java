@@ -1,14 +1,13 @@
 package com.sit.swprocess.DogeCommerce.AuthenProvider;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "AuthenProvider")
 public class AuthenProvider {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @NotNull
@@ -20,8 +19,7 @@ public class AuthenProvider {
     public AuthenProvider() {
     }
 
-    public AuthenProvider(Long id, @NotNull String name, @NotNull String token) {
-        this.id = id;
+    public AuthenProvider(@NotNull String name, @NotNull String token) {
         this.name = name;
         this.token = token;
     }

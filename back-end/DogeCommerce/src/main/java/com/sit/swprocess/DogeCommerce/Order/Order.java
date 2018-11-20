@@ -11,7 +11,6 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -20,15 +19,11 @@ import java.util.List;
 @Table(name = "orders")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order implements Serializable {
-
-    @Autowired
-    DecimalFormat decimalFormat;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
     List<OrderDetail> orderDetails;
 
     @Nullable
@@ -59,14 +54,6 @@ public class Order implements Serializable {
         this.shipment = shipment;
         this.buyer = buyer;
         this.status = status;
-    }
-
-    public DecimalFormat getDecimalFormat() {
-        return decimalFormat;
-    }
-
-    public void setDecimalFormat(DecimalFormat decimalFormat) {
-        this.decimalFormat = decimalFormat;
     }
 
     public Long getId() {
@@ -117,20 +104,9 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public long getPriceForOmise() {
-        long price = 0;
-        if (orderDetails != null) {
-            for(OrderDetail orderDetail: this.orderDetails) {
-                price +=  Long.parseLong(decimalFormat.format(orderDetail.getQuantity() * orderDetail.getPriceEach()));
-            }
-        }
-        return price + 3000;
-    }
-
     @Override
     public String toString() {
         return "Order{" +
-                "decimalFormat=" + decimalFormat +
                 ", id=" + id +
                 ", orderDetails=" + orderDetails +
                 ", payment=" + payment +

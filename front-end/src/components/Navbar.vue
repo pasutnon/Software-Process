@@ -5,7 +5,7 @@
         :value="true"
         absolute
         fixed app
-        height="44px"
+        height="50px"
         color="#F4F4F4"
       >
         <v-btn value="/" color="#F5580C" flat to="/">
@@ -63,5 +63,6 @@ nav {
     bottom: 0;
     width: 100%;
     margin-bottom: 0 !important;
+    z-index: 100;
 }
 </style>

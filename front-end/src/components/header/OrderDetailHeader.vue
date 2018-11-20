@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-toolbar color="white" height="50.00px" card>
-        <v-btn icon :to="`${link}`" @click="setIsShowToolBar(true)">
+        <v-btn icon @click="$router.go(-1)">
             <v-icon color="#F5580C">arrow_back</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
@@ -11,21 +11,16 @@
             <v-icon></v-icon>
         </v-btn>
     </v-toolbar>
+    <v-progress-linear class="hr-1" value=100
+    color="#F5580C" height="3"></v-progress-linear>
 </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
     export default {
         name: "OrderDetailHeader",
-        props:{
-            link:String
-        },
         data() {
             return {
             }
-        },
-        methods:{
-            ...mapActions(['setIsShowToolBar']),
         }
     }
 </script>
