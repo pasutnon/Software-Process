@@ -38,7 +38,6 @@
 
 <script>
 import { mapActions,mapGetters } from "vuex";
-import { sumTotalItem } from '../utils/cart.js';
 
 export default {
   data() {
@@ -52,7 +51,6 @@ export default {
   mounted() {
   },
   methods: {
-    sumTotalItem,
   }
 };
 </script>
