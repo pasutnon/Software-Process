@@ -1,6 +1,9 @@
 <template>
 <div>
-    <OrderDetailHeader></OrderDetailHeader>
+    <div class="hearder">
+        <OrderDetailHeader></OrderDetailHeader>
+    </div>
+    <br/><br/>
     <b-container>
         <v-list v-for="(product) in cart" v-bind:key="product.ID">
             <b-row>
@@ -32,10 +35,19 @@
             </b-list-group-item>
             <b-collapse id="shipmentCollapse">
                 <b-list-group-item>
-                    หมายเลขบัตร <div class="float-right"><input class="text-right" type="text" size="18" maxlength="16" placeholder="หมายเลขบัตร" v-model="card.number"></div>
+                    ชื่อผู้รับสินค้า <div class="float-right"><input class="text-right" type="text" size="26" placeholder="ชื่อผู้รับสินค้า" v-model="shipment.name"></div>
                 </b-list-group-item>
                 <b-list-group-item>
-                    CVV <div class="float-right"><input class="text-right" type="text" size="5" maxlength="3" placeholder="CVV" v-model="card.cvv"></div>
+                    อาคาร ถนน และอื่นๆ <div class="float-right"><input class="text-right" type="text" size="26" placeholder="อาคาร ถนน และอื่นๆ" v-model="shipment.address"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    จังหวัด <div class="float-right"><input class="text-right" type="text" size="26" placeholder="จังหวัด" v-model="shipment.province"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    อำเภอ/เขต <div class="float-right"><input class="text-right" type="text" size="26" placeholder="อำเภอ/เขต" v-model="shipment.district"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    รหัสไปรษณีย์ <div class="float-right"><input class="text-right" type="text" size="26" placeholder="รหัสไปรษณีย์" v-model="shipment.postcode"></div>
                 </b-list-group-item>
             </b-collapse>
         </b-list-group>
@@ -91,6 +103,13 @@ import axios from "axios"
                         month: '',
                         year: '',
                     }
+                },
+                shipment: {
+                    name: '',
+                    address: '',
+                    district: '',
+                    province: '',
+                    postcode: ''
                 }
             }
         },
@@ -147,6 +166,13 @@ import axios from "axios"
 }
 .button-login {
   width: 90%;
+}
+.hearder{
+  position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 0 !important;
+    z-index: 100;
 }
 </style>
 
