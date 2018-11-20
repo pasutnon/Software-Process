@@ -96,7 +96,7 @@ export default {
 	padding: 3px;
 	border-radius: 9999em;
   box-shadow: 
-  inset 0 0 0 1px #F5580C;
+  inset 0 0 0 2px #F5580C;
   color:#F5580C;
   font-size: 1.4em;
 }
