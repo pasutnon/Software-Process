@@ -73,14 +73,6 @@ const router = new Router({
       }
     },
     {
-      path: '/order/:orderId/payment/omise',
-      name: 'Payment',
-      component: Payment,
-      meta: {
-        middleware: [authMiddleware],
-      },
-    },
-    {
       path: '/order/:orderId/payment/omise/complete',
       name: 'PaymentComplete',
       component: PaymentComplete,
@@ -89,7 +81,7 @@ const router = new Router({
       },
     },
     {
-      path: '/order/summary',
+      path: '/order/detail',
       name: 'OrderDetail',
       component: function () {
         return import('./views/OrderDetail.vue')
