@@ -1,7 +1,7 @@
 <template>
         <img
           :src="path"
-        width="70%"/>      
+        width="70%" />      
 
 </template>
 

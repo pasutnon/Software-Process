@@ -1,5 +1,6 @@
 <template>
 <div class="mb-5">
+  
   <v-container
           fluid
           grid-list-md
@@ -12,28 +13,19 @@
                     <ProductImage :id="product.productId"/>
                   </router-link>
 
-                 
-                    <v-layout justify-space-around>
-                      <v-spacer></v-spacer>
-                      <div>
+                  <b-container>
+                  <b-row>
+                  <b-col cols>
                   <div class="product_name">{{product.productName}}</div>
                     <br>
                   <div class="product_price">฿{{product.price | formatNumber}}</div>
-                   <br>
-                      </div>
-                  
-                  <!-- <div class="addProduct"> -->
-                    <v-spacer></v-spacer>
-                    <v-spacer></v-spacer>
-                   <v-spacer></v-spacer>
-                  <v-btn class="addProduct" @click="addProductInCart(product)" color="#F5580C" ><img src="..\assets\Cart-White.svg"></v-btn>
-                  <v-spacer></v-spacer>
-
-
-                  <!-- </div> -->
-                  </v-layout>
-
-                </div>
+                  </b-col>
+                  <b-col cols>
+                  <div class="addProduct"><v-btn @click="addProductInCart(product)" color="#F5580C" ><img src="..\assets\Cart-White.svg"></v-btn></div>
+                  </b-col>
+                  </b-row>
+                  </b-container>
+             </div>
               </v-card>
           </v-flex>
     </v-layout>
@@ -65,33 +57,36 @@ export default {
       .then(response => (this.products = response.data));
   },
   computed: {
-    ...mapGetters(['cart'])
+    ...mapGetters(["cart"])
   },
   methods: {
     ...mapMutations({
-      addProductInCart: 'addProductInToCart'
+      addProductInCart: "addProductInToCart"
     })
   }
 };
 
-vue.filter("formatNumber", function (value) {
+vue.filter("formatNumber", function(value) {
   return numeral(value).format("0,0");
 });
 </script>
 
 <style>
-.product_name
-{font-size: 100%;
+.product_name {
+  font-size: 100%;
+  margin-left: 5%;
+  text-align: left;
 }
-.product_price
-{font-size: 100%;
-color:#F5580C;
+.product_price {
+  font-size: 100%;
+  text-align: left;
+  margin-left: 5%;
+  color: #f5580c;
 }
-/* .addProduct
-{
-
-} */
-
+.addProduct {
+  text-align: right;
+  margin-right: 5%;
+}
 </style>
 
 
