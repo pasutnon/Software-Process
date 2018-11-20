@@ -41,8 +41,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
         Map<String, String> pathVariables = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         logger.info(AuthInterceptor.class.getSimpleName() + " START handling");
-        logger.info("Incoming Request: "+request.getRequestURI()+" with Path variables: "+ pathVariables);
+        logger.info("Incoming Request: "+request.getMethod()+" "+request.getRequestURI()+" with Path variables: "+ pathVariables);
         String token = request.getHeader("Authorization");
+        if( request.getMethod().equals("OPTIONS") ){
+            return true;
+        }
         try {
             if( pathVariables.isEmpty() == false && pathVariables.containsKey("userId")) {
                 DecodedJWT jwt = jwtService.verify(token);

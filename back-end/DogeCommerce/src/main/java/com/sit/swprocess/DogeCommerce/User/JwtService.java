@@ -23,7 +23,7 @@ public class JwtService {
 
     public DecodedJWT verify(String token) {
         logger.info("incoming Token: "+token);
-        if(token.startsWith("Bearer ")) {
+        if(token != null && token.startsWith("Bearer ")) {
             token = token.substring(token.indexOf(' ')+1, token.length());
             logger.info("substringed Token: "+token);
             DecodedJWT decodedJWT = verifier.verify(token);
