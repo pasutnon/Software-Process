@@ -5,6 +5,6 @@ export default axios.create({
     baseURL: process.env.VUE_APP_API_URL,
     timeout: 3000,
     headers: {
-        'Authorization': cookie.get('session')
+        'Authorization': 'Bearer ' + cookie.get('session')
     }
 })
