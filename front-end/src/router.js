@@ -63,7 +63,6 @@ export default new Router({
       component: Payment
     },
     {
-      path: '/order/:orderId/payment/omise/complete',
       path: '/shipmentform',
       name: 'ShipmentForm',
       component: function () { 
@@ -71,7 +70,7 @@ export default new Router({
       }
     },
     {
-      path: '/order/:orderId/payment/complete',
+      path: '/order/:orderId/payment/omise/complete',
       name: 'PaymentComplete',
       component: PaymentComplete
     },

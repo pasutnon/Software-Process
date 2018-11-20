@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HomeHeader></HomeHeader>
+    <GenericHeader header="เทส ๆ"></GenericHeader>
     <div class="container shadow-sm rounded bg-white mt-4">
       <div class="text-center">
         <h4>ชำระเงิน</h4>
@@ -83,7 +83,7 @@
   </div>
 </template>
 <script>
-  import HomeHeader from '../components/header/HomeHeader.vue'
+  import GenericHeader from '../components/header/GenericHeader.vue'
   import OmiseUtils from '../utils/omise.js'
   import axios from '../utils/axios.js'
   import qs from 'qs'
@@ -101,7 +101,7 @@
       }
     },
     components: {
-      HomeHeader
+      GenericHeader
     },
     methods: {
       processPayment: async function (element) {
@@ -132,7 +132,7 @@
           )
           window.location = chargeResponse.data.authorizedUrl
         } catch (err) {
-          console.err(err)
+          console.log(err)
         }
       }
     }

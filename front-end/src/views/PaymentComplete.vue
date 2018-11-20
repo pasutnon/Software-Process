@@ -30,9 +30,10 @@ export default {
       const paymentResponse = await axios.get(`/payments/order/${this.$route.params.orderId}/omise`)
       this.isComplete = paymentResponse.data.status === "paid"
       this.isWait = false
-    } catch {
+    } catch (err) {
       this.isComplete = false   
-      this.isWait = false   
+      this.isWait = false
+      console.log(err)   
     }
   },
   methods: {
