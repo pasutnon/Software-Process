@@ -1,5 +1,6 @@
 package com.sit.swprocess.DogeCommerce.OrderDetail;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sit.swprocess.DogeCommerce.Order.Order;
 import com.sit.swprocess.DogeCommerce.Product.Product;
@@ -26,8 +27,9 @@ public class OrderDetail implements Serializable {
     double priceEach;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     Order order;
 
     public OrderDetail() {
@@ -69,5 +71,24 @@ public class OrderDetail implements Serializable {
 
     public void setPriceEach(double priceEach) {
         this.priceEach = priceEach;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", priceEach=" + priceEach +
+                ", order=" + order +
+                '}';
     }
 }

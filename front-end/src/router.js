@@ -67,7 +67,7 @@ const router = new Router({
       },
     },
     {
-      path: '/order/:orderId/payment/complete',
+      path: '/order/:orderId/payment/omise/complete',
       name: 'PaymentComplete',
       component: PaymentComplete,
       meta: {
