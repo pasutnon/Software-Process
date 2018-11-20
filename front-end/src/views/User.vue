@@ -33,7 +33,7 @@
                 <b-list-group-item href="#some-link">
                     การจ่ายเงิน <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
                 </b-list-group-item>
-                <br/>
+                <div class="mb-3"></div>
                 <b-list-group-item href="#some-link">
                     รายการที่สั่งซื้อทั้งหมด <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
                 </b-list-group-item>
