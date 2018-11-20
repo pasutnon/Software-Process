@@ -33,6 +33,10 @@ public class OmisePaymentService {
     private String frontendURL;
 
     private Client omiseClient;
+    
+    public OmisePaymentService(String PUBLIC_KEY, String SECRET_KEY) throws ClientException {
+        this.omiseClient = new Client(PUBLIC_KEY, SECRET_KEY);
+    }
 
     public OmisePayment getPaymentById(long paymentId) {
         return omisePaymentRepository.findById(paymentId).get();
@@ -42,9 +46,7 @@ public class OmisePaymentService {
         return omisePaymentRepository.findAll();
     }
 
-    public OmisePaymentService(String PUBLIC_KEY, String SECRET_KEY) throws ClientException {
-        this.omiseClient = new Client(PUBLIC_KEY, SECRET_KEY);
-    }
+
 
     public ChargeResult chargeOrder(String token, Order order) throws IOException, OmiseException, ClientException {
         Charge.Create chargeSpec = new Charge.Create();
