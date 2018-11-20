@@ -74,8 +74,8 @@
             </b-collapse>
         </b-list-group>
     </b-container>
-    
-    <div class="btn-block button-add p-3 text-center " style="background-color: #f5580c; color: white; cursor: pointer;" @click="processCheckout()"> 
+    <div class="mb-5"></div>
+    <div class="fixed-nav btn-block button-add p-3 text-center " style="background-color: #f5580c; color: white; cursor: pointer;" @click="processCheckout()"> 
         <div v-if="isSubmitted">
             <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
         </div>
@@ -106,21 +106,21 @@ import userUtils from '../utils/user.js'
                 DeliveryPrice: 40,
                 isSubmitted: false,
                 card: {
-                    number: '4242424242424242',
-                    holder: 'Pureewat Kaewpoy',
-                    cvv: '424',
+                    number: '',
+                    holder: '',
+                    cvv: '',
                     exp: {
-                        month: '11',
-                        year: '2020',
+                        month: '',
+                        year: '',
                     }
                 },
                 shipment: {
-                    name: 'Pureewat Kaewpoy',
-                    address: '54/35 Wutthakat Rd.',
-                    district: 'Bangkho',
-                    state: 'Chomthong',
-                    province: 'Bangkok',
-                    postcode: '10150'
+                    name: '',
+                    address: '',
+                    district: '',
+                    state: '',
+                    province: '',
+                    postcode: ''
                 },
                 orderId: null,
             }
@@ -180,13 +180,20 @@ import userUtils from '../utils/user.js'
             'totalItemInCart',
             'totalCartPrice',
             'cart'
-            ])
+            ]),
         }
     };
 
 </script>
 
 <style>
+.fixed-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0 !important;
+  z-index: 100;
+}
 .hr-1 {
   border: 2px solid orangered;
   padding: 0px;
