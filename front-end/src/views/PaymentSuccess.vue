@@ -4,7 +4,7 @@
     <div class="container shadow-sm rounded bg-white mt-4">
       <div v-if="isWait">กำลังดึงข้อมูล</div>
       <div v-else>
-        <div v-if="isComplete"><p style="color:#F5580C; text-align:center; font-size:20px;">การจ่ายเงินสำเร็จ<br>
+        <div v-if="isComplete"><p style="color:#F5580C; text-align:center; font-size:20px;">"การจ่ายเงินสำเร็จ"<br>
         เลขบิล : {{orderId}}</p></div>
         <div v-else>เกิดข้อผิดพลาด</div>
       </div>
