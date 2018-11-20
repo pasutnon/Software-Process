@@ -14,14 +14,7 @@
                 </b-col>
             </b-row>
         </v-list>
-        <b-list-group>
-            <b-list-group-item href="#some-link">
-                ที่อยู่การจัดส่ง<v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon> 
-            </b-list-group-item>
-            <b-list-group-item href="#some-link">
-                การจ่ายเงิน <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
-            </b-list-group-item>
-            <div class="mb-3"></div>
+        <b-list-group class="mt-3">
             <b-list-group-item>
                 รวมราคาสินค้า <v-text color="#F5580C" style="float: right;">฿ {{totalCartPrice | formatNumber}}</v-text>
             </b-list-group-item>
@@ -33,10 +26,41 @@
                 รวมทั้งสิ้น <v-text color="#F5580C" style="float: right;">฿ {{totalCartPrice+DeliveryPrice | formatNumber}}</v-text>
             </b-list-group-item>
         </b-list-group>
+        <b-list-group class="pt-3">
+            <b-list-group-item v-b-toggle.shipmentCollapse @click="isShipmentAddressCollapse = !isShipmentAddressCollapse">
+                ข้อมูลการจัดส่ง <v-icon color="#F5580C" style="float: right; fon">{{ isShipmentAddressCollapse ? 'keyboard_arrow_down': 'keyboard_arrow_up' }}</v-icon>
+            </b-list-group-item>
+            <b-collapse id="shipmentCollapse">
+                <b-list-group-item>
+                    หมายเลขบัตร <div class="float-right"><input class="text-right" type="text" size="18" maxlength="16" placeholder="หมายเลขบัตร" v-model="card.number"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    CVV <div class="float-right"><input class="text-right" type="text" size="5" maxlength="3" placeholder="CVV" v-model="card.cvv"></div>
+                </b-list-group-item>
+            </b-collapse>
+        </b-list-group>
+        <b-list-group class="pt-3">
+            <b-list-group-item v-b-toggle.creditCollapse @click="isCreditCollapse = !isCreditCollapse">
+                ข้อมูลบัตร <v-icon color="#F5580C" style="float: right; fon">{{ isCreditCollapse ? 'keyboard_arrow_down': 'keyboard_arrow_up' }}</v-icon>
+            </b-list-group-item>
+            <b-collapse id="creditCollapse">
+                <b-list-group-item>
+                    หมายเลขบัตร <div class="float-right"><input class="text-right" type="text" size="18" maxlength="16" placeholder="หมายเลขบัตร" v-model="card.number"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    CVV <div class="float-right"><input class="text-right" type="text" size="5" maxlength="3" placeholder="CVV" v-model="card.cvv"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    วันหมดอายุ <div class="float-right"><input class="text-right" type="text" size="5" maxlength="2" placeholder="MM" v-model="card.exp.month"> / <input class="text-right" type="text" size="5" maxlength="4" placeholder="YYYY" v-model="card.exp.year"></div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    ชื่อบนบัตร <div class="float-right"><input class="text-right" type="text" size="30" placeholder="ชื่อผู้ถือบัตร" v-model="card.holder"></div>
+                </b-list-group-item>
+            </b-collapse>
+        </b-list-group>
     </b-container>
-    <br/><br/>
     
-    <button class="btn-block button-add"> 
+    <button class="btn-block button-add p-3" style="background-color: #f5580c; color: white;"> 
         ชำระเงินเดี๋ยวนี้
     </button>
 </div>
@@ -55,11 +79,51 @@ import axios from "axios"
         },
         data() {
             return {
-                DeliveryPrice:40
+                isCreditCollapse: true,
+                isShipmentAddressCollapse: true,
+                DeliveryPrice: 40,
+                isSubmitted: false,
+                card: {
+                    number: '',
+                    holder: '',
+                    cvv: '',
+                    exp: {
+                        month: '',
+                        year: '',
+                    }
+                }
             }
         },
         methods:{
-            ...mapActions(['setIsShowToolBar'])
+            ...mapActions(['setIsShowToolBar']),
+            processPayment: async function (element) {
+                this.isSubmitted = true
+                const cardInfo = {
+                    name: this.card.holder,
+                    number: this.card.number,
+                    expiration_month: this.card.exp.month,
+                    expiration_year: this.card.exp.year,
+                    security_code: this.card.cvv,
+                }
+                const tokenResponse = await OmiseUtils.createCardToken(cardInfo)
+                const cardToken = tokenResponse.response.id
+                const chargeFormData = new FormData()
+                chargeFormData.append('token', cardToken)
+                try {
+                    const chargeResponse = await axios.post(
+                        `/payments/order/${this.$route.params.orderId}/omise`,
+                        chargeFormData,
+                        {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                )
+                window.location = chargeResponse.data.authorizedUrl
+                } catch (err) {
+                    console.log(err)
+                }
+            }
         },
         mounted () {
             this.setIsShowToolBar(false)
