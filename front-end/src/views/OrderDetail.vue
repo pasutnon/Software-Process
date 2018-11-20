@@ -75,9 +75,14 @@
         </b-list-group>
     </b-container>
     
-    <button class="btn-block button-add p-3" style="background-color: #f5580c; color: white;" @click="processCheckout()"> 
-        ชำระเงินเดี๋ยวนี้
-    </button>
+    <div class="btn-block button-add p-3 text-center " style="background-color: #f5580c; color: white; cursor: pointer;" @click="processCheckout()"> 
+        <div v-if="isSubmitted">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+        <div v-else>
+            ชำระเงินเดี๋ยวนี้
+        </div>
+    </div>
 </div>
 </template>
 
@@ -144,15 +149,14 @@ import userUtils from '../utils/user.js'
                 }
             },
             processOrder: async function () {
-                this.isSubmitted = true
                 const orderDetails = this.cart.map((item) => {
-                    return {
-                        productId: item.productId,
+                        return {
+                                productId: item.productId,
                         quantity: item.quantity,
                     }
                 })
                 const order = {
-                    buyerId: userUtils.getUserId(),
+                        buyerId: userUtils.getUserId(),
                     orderDetails: orderDetails,
                     shipmentMethodId: '1',
                     shipmentAddress: this.shipment
@@ -161,7 +165,11 @@ import userUtils from '../utils/user.js'
                 this.processPayment(orderResponse.id)
             },
             processCheckout: async function () {
-                this.processOrder()
+                if (this.isSubmitted === false) {
+                    console.log('wow')
+                    this.isSubmitted = true
+                    this.processOrder()
+                }
             }
         },
         mounted () {
@@ -193,6 +201,61 @@ import userUtils from '../utils/user.js'
     width: 100%;
     margin-top: 0 !important;
     z-index: 100;
+}
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 10px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 0px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
 }
 </style>
 

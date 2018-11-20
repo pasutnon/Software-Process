@@ -101,6 +101,8 @@ public class OmisePaymentService {
             orderService.saveOrder(order);
             chargeStatusResponse.setStatus("paid");
         } else {
+            order.getPayment().setStatus(order.getPayment().getStatus());
+            orderService.saveOrder(order);
             chargeStatusResponse.setStatus(order.getPayment().getStatus());
         }
         return chargeStatusResponse;
