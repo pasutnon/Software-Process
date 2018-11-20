@@ -75,7 +75,7 @@ const router = new Router({
       },
     },
     {
-      path: '/orderDetail',
+      path: '/order/summary',
       name: 'OrderDetail',
       component: function () {
         return import('./views/OrderDetail.vue')
