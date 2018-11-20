@@ -63,12 +63,13 @@ export default new Router({
       component: Payment
     },
     {
-<<<<<<< HEAD
       path: '/shipmentform',
       name: 'ShipmentForm',
-      component: function () { 
+      component: function () {
         return import('./views/ShipmentForm.vue')
-=======
+      }
+    },
+    {
       path: '/order/:orderId/payment/complete',
       name: 'PaymentComplete',
       component: PaymentComplete
@@ -78,7 +79,6 @@ export default new Router({
       name: 'OrderDetail',
       component: function () {
         return import('./views/OrderDetail.vue')
->>>>>>> 290906a034f0f2631c1a9d20c7d2febc1b0ec046
       }
     }
   ]
