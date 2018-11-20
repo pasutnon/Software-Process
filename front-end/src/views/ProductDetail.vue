@@ -27,14 +27,14 @@
         <br/>
         <p class="body-2">{{product.productDetail}}</p>
       </b-container>
-      <button class="btn-block button-add" @click="addCart()"> 
+      <button class="btn-block button-add" @click="addProductInCart(product)"> 
         เพิ่มสินค้าลงตระกร้า
       </button>
   </div>
 </template>
 <script>
 import ProductDetailHeader from '../components/header/ProductDetailHeader';
-import { mapActions } from 'vuex'
+import { mapActions,mapMutations } from 'vuex'
 import axios from "axios"
   export default {
     components: {
@@ -60,6 +60,7 @@ import axios from "axios"
     },
     methods:{
       ...mapActions(['setIsShowToolBar']),
+      ...mapMutations({ addProductInCart: 'addProductInToCart' }),
       async getProductDetail(){
         const { data } = await axios.get(process.env.VUE_APP_DOGE_COMMERCE_SERVICE_URL+"/products/"+this.productID);
         this.product = data;
