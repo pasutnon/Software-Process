@@ -1,7 +1,7 @@
 package com.sit.swprocess.DogeCommerce.Bean;
 
 import co.omise.ClientException;
-import com.sit.swprocess.DogeCommerce.Payment.PaymentService;
+import com.sit.swprocess.DogeCommerce.Payment.OmisePaymentService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +18,8 @@ public class PaymentBean {
 
 
     @Bean
-    public PaymentService paymentService() throws ClientException {
-        return new PaymentService(PUBLIC_KEY, SECRET_KEY);
+    public OmisePaymentService paymentService() throws ClientException {
+        return new OmisePaymentService(PUBLIC_KEY, SECRET_KEY);
     }
 
     @Bean

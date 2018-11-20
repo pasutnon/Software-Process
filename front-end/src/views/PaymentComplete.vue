@@ -13,6 +13,7 @@
 
 <script>
 import HomeHeader from '../components/header/HomeHeader.vue'
+import axios from '../utils/axios.js'
 
 export default {
   data() {
@@ -24,10 +25,17 @@ export default {
   components: {
     HomeHeader,
   },
-  methods: {
-    checkPayment: function () {
-      
+  async mounted() {
+    try {
+      const paymentResponse = await axios.get(`/payments/order/${this.$route.params.orderId}/omise`)
+      this.isComplete = paymentResponse.data.status === "paid"
+      this.isWait = false
+    } catch {
+      this.isComplete = false   
+      this.isWait = false   
     }
+  },
+  methods: {
   }
 }
 </script>

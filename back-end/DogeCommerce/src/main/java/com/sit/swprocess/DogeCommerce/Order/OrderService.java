@@ -4,7 +4,7 @@ import com.sit.swprocess.DogeCommerce.Address.ShipmentAddress;
 import com.sit.swprocess.DogeCommerce.Address.ShipmentAddressService;
 import com.sit.swprocess.DogeCommerce.OrderDetail.OrderDetail;
 import com.sit.swprocess.DogeCommerce.Payment.Payment;
-import com.sit.swprocess.DogeCommerce.Payment.PaymentService;
+import com.sit.swprocess.DogeCommerce.Payment.OmisePaymentService;
 import com.sit.swprocess.DogeCommerce.Shipment.Shipment;
 import com.sit.swprocess.DogeCommerce.Shipment.ShipmentMethod;
 import com.sit.swprocess.DogeCommerce.Shipment.ShipmentMethodService;
@@ -28,7 +28,7 @@ public class OrderService {
     UserService userService;
 
     @Autowired
-    PaymentService paymentService;
+    OmisePaymentService omisePaymentService;
 
     @Autowired
     ShipmentService shipmentService;
@@ -44,13 +44,13 @@ public class OrderService {
     }
 
     public List<Order> getOrdersByUserId(Long userId) {
-        User user = userService.getUserById(userId);
+        User user = userService.getUserById(userId).get();
         return orderRepository.findByBuyer(user);
     }
 
     public Order createOrder(Long userId, Map<String, Object> jsonOrder) {
         List<OrderDetail> orderDetails = (List<OrderDetail>) jsonOrder.get("orderDetails");
-        User buyer = userService.getUserById(userId);
+        User buyer = userService.getUserById(userId).get();
 //        Payment payment = paymentService.getPaymentById(jsonOrder.get("paymentId")+"");
         Payment payment = null;
         Long shipmentMethodId = Long.parseLong(jsonOrder.get("shipmentMethodId")+"");
@@ -60,6 +60,10 @@ public class OrderService {
         Order savingOrder = new Order(orderDetails, payment, shipment, buyer, "pending");
         Order savedOrder = orderRepository.save(savingOrder);
         return savedOrder;
+    }
+
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
     }
 
     private ShipmentAddress makeShipmentAddressModelFromMap(Map<String, Object> mapShipmentAddress) {

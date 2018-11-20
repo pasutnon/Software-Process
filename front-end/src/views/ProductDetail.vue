@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProductDetailHeader link="/user"></ProductDetailHeader>
+    <ProductDetailHeader></ProductDetailHeader>
     <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading1 || loading2"
     color="#F5580C" height="3"></v-progress-linear>
     <v-progress-linear class="hr-1" value=100 v-else
