@@ -30,7 +30,7 @@ import ProductImage from "./ProductImage";
 import axios from "axios";
 import numeral from "numeral";
 import vue from "vue";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "ShowProducts",
@@ -47,14 +47,10 @@ export default {
       .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
       .then(response => (this.products = response.data));
   },
-  mounted() {
-    this.setIsShowToolBar(true)
-  },
   computed: {
     ...mapGetters(['cart'])
   },
   methods: {
-    ...mapActions(['setIsShowToolBar']),
     ...mapMutations({
       addProductInCart: 'addProductInToCart'
     })
