@@ -28,6 +28,7 @@
                           {{product.quantity}}
                         <button @click="addProductInToCart(product)">+</button>
                           <div class="product_price">฿ {{product.price | formatNumber}}</div>
+                          <button color="#F5580C" class="btn-3" dark @click="removeProductInCart(product)">remove</button>
                       </div>
                     </b-col>
                 </b-row>
@@ -46,7 +47,7 @@
             <b-col cols="5">
                 <div class="text-xs-right">
                     <router-link :to="{ name: 'OrderDetail' }">
-                        <v-btn>ชำระเงิน ({{ totalItemInCart | formatNumber }})</v-btn>
+                        <v-btn color="#F5580C" dark>ชำระเงิน ({{ totalItemInCart | formatNumber }})</v-btn>
                     </router-link>
                 </div>
             </b-col>
@@ -95,6 +96,12 @@ button{
     color: white;
     background-color: #F5580C;
 }
+.btn-3{
+    font-size: 15px;
+    text-align: center;
+    width: 70px;
+    height: 30px;
+}
 .hr-1 {
     border: 2px solid orangered;
     padding: 0px;
@@ -113,7 +120,7 @@ button{
     width: 100%;
     height: 50px;
     z-index: 100;
-    margin-bottom: 57px !important;
+    margin-bottom: 65px !important;
 }
 </style>
 
