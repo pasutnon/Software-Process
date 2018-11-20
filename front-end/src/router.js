@@ -58,12 +58,12 @@ export default new Router({
       }
     },
     {
-      path: '/order/:orderId/payment',
+      path: '/order/:orderId/payment/omise',
       name: 'Payment',
       component: Payment
     },
     {
-      path: '/order/:orderId/payment/complete',
+      path: '/order/:orderId/payment/omise/complete',
       name: 'PaymentComplete',
       component: PaymentComplete
     },

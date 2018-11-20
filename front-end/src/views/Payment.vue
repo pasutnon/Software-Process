@@ -65,12 +65,15 @@
                 </b-form-group>
               </div>
             </div>
-            <div class="row pt-3">
+            <div class="w-100 text-center" v-if="isSubmitted">
+              <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="row pt-3" v-else>
               <div class="col-6 text-right">
                 <b-button variant="danger">ยกเลิก</b-button>
               </div>
               <div class="col-6 text-left">
-                <b-button variant="success" v-on:click="processPayment">ดำเนินการต่อ</b-button>
+                <b-button variant="success" :disabled="isSubmitted" v-on:click="processPayment">ดำเนินการต่อ</b-button>
               </div>
             </div>
           </b-form>
@@ -93,14 +96,17 @@
           expDate: '02/2020',
           cvvNumber: '111',
           cardNameHolder: 'Dogo',
-        }
+        },
+        isSubmitted: false
       }
     },
     components: {
       HomeHeader
     },
     methods: {
-      processPayment: async function () {
+      processPayment: async function (element) {
+        element.target.innerHTML = "กำลังดำเนินการ"
+        this.isSubmitted = true
         const expMonth = this.form.expDate.substring(0, 2)
         const expYear = this.form.expDate.substring(3, 7)
         const cardInfo = {
@@ -116,7 +122,7 @@
         chargeFormData.append('token', cardToken)
         try {
           const chargeResponse = await axios.post(
-            `/order/${this.$route.params.orderId}/payment`,
+            `/payments/order/${this.$route.params.orderId}/omise`,
             chargeFormData,
             {
               headers: {
@@ -132,3 +138,61 @@
     }
   }
 </script>
+
+<style>
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #f5580c;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+</style>

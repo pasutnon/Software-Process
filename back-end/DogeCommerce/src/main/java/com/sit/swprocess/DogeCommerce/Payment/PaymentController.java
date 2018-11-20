@@ -16,34 +16,61 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    PaymentService paymentService;
+    OmisePaymentService omisePaymentService;
 
     @Autowired
     OrderService orderService;
 
     @GetMapping("")
-    public List<Payment> getAllPayments() {
-        return paymentService.getAllPayments();
+    public List<OmisePayment> getAllPayments() {
+        return omisePaymentService.getAllPayments();
     }
 
     @GetMapping("/{paymentId}")
-    public Payment getPaymentById(@PathVariable String paymentId) {
-        return paymentService.getPaymentById(paymentId);
+    public Payment getPaymentById(@PathVariable long paymentId) {
+        return omisePaymentService.getPaymentById(paymentId);
     }
 
-    @PostMapping("/order/{order_id}/payment")
+    @PostMapping("/order/{order_id}/omise")
     public ResponseEntity<ChargeResult> createPayment(
             @RequestParam(required = true, name = "token") String token,
             @PathVariable("order_id") long orderId
     ) throws IOException, OmiseException {
         Order order = orderService.getOrderByOrderId(orderId).get();
+        OmisePayment omisePayment = new OmisePayment();
         ChargeResult chargeResult;
         try {
-            chargeResult = paymentService.chargeItem(token, order.getId(), order.getPriceForOmise());
+            chargeResult = omisePaymentService.chargeItem(token, order.getId(), omisePaymentService.calculatePriceForOmise(order));
+
+            omisePayment.setLast4Digit(omisePaymentService.getLast4Digit(chargeResult.getChargeId()));
+            omisePayment.setChargeId(chargeResult.getChargeId());
+            omisePayment.setStatus("pending");
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ChargeException(e.getMessage());
         }
+        order.setPayment(omisePayment);
+        orderService.saveOrder(order);
         ResponseEntity response = new ResponseEntity<ChargeResult>(chargeResult, HttpStatus.CREATED);
         return response;
+    }
+
+    @GetMapping("/order/{order_id}/omise")
+    public ResponseEntity<ChargeStatusResponse> getPaymentResponse(
+            @PathVariable("order_id") long orderId
+    ) throws IOException, OmiseException {
+        Order order = orderService.getOrderByOrderId(orderId).get();
+        long paymentId = order.getPayment().getId();
+        OmisePayment omisePayment = omisePaymentService.getPaymentById(paymentId);
+        boolean isPaid = omisePaymentService.isPaid(omisePayment.getChargeId());
+        ChargeStatusResponse chargeStatusResponse = new ChargeStatusResponse();
+        if(isPaid == true) {
+            order.getPayment().setStatus("paid");
+            orderService.saveOrder(order);
+            chargeStatusResponse.setStatus("paid");
+        } else {
+            chargeStatusResponse.setStatus(order.getPayment().getStatus());
+        }
+        return new ResponseEntity<ChargeStatusResponse>(chargeStatusResponse, HttpStatus.OK);
     }
 }
