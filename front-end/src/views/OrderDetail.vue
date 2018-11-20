@@ -18,14 +18,10 @@
             <b-list-group-item href="#some-link">
                 ที่อยู่การจัดส่ง<v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon> 
             </b-list-group-item>
-<<<<<<< HEAD
-            <br/>
-=======
             <b-list-group-item href="#some-link">
                 การจ่ายเงิน <v-icon color="#F5580C" style="float: right;">arrow_forward</v-icon>
             </b-list-group-item>
             <div class="mb-3"></div>
->>>>>>> b0ebfcfef2152ed5ae66e6c9fcbd76ca63c97cb7
             <b-list-group-item>
                 รวมราคาสินค้า <v-text color="#F5580C" style="float: right;">฿ {{totalCartPrice | formatNumber}}</v-text>
             </b-list-group-item>
@@ -37,36 +33,16 @@
                 รวมทั้งสิ้น <v-text color="#F5580C" style="float: right;">฿ {{totalCartPrice+DeliveryPrice | formatNumber}}</v-text>
             </b-list-group-item>
         </b-list-group>
-         <v-btn color="deep-orange darken-2" style="width:100" dark>ชำระเงินเดี๋ยวนี้</v-btn>
     </b-container>
-<<<<<<< HEAD
-=======
     <br/><br/>
+    
     <button class="btn-block button-add"> 
         ชำระเงินเดี๋ยวนี้
     </button>
->>>>>>> b0ebfcfef2152ed5ae66e6c9fcbd76ca63c97cb7
 </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-import OrderDetailHeader from "../components/header/OrderDetailHeader";
-import { mapActions } from "vuex";
-import axios from "axios";
-import ShowProducts from "../components/ShowProducts";
-import ProductImage from "../components/ProductImage";
-
-export default {
-  name: "OrderDetail",
-  components: {
-    OrderDetailHeader
-  },
-  data() {
-    return {
-      loading1: true,
-      loading2: true
-=======
 import OrderDetailHeader from '../components/header/OrderDetailHeader';
 import ProductImage from "../components/ProductImage";
 import { mapActions,mapGetters } from 'vuex'
@@ -95,16 +71,8 @@ import axios from "axios"
             'cart'
             ])
         }
->>>>>>> b0ebfcfef2152ed5ae66e6c9fcbd76ca63c97cb7
     };
-  },
-  methods: {
-    ...mapActions(["setIsShowToolBar"])
-  },
-  mounted() {
-    this.setIsShowToolBar(false);
-  }
-};
+
 </script>
 
 <style>
