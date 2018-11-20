@@ -1,6 +1,9 @@
 <template>
 <div>
-    <OrderDetailHeader></OrderDetailHeader>
+    <div class="hearder">
+        <OrderDetailHeader></OrderDetailHeader>
+    </div>
+    <br/><br/>
     <b-container>
         <v-list v-for="(product) in cart" v-bind:key="product.ID">
             <b-row>
@@ -147,6 +150,13 @@ import axios from "axios"
 }
 .button-login {
   width: 90%;
+}
+.hearder{
+  position: fixed;
+    top: 0;
+    width: 100%;
+    margin-top: 0 !important;
+    z-index: 100;
 }
 </style>
 
