@@ -3,39 +3,40 @@
   <div>
     <v-toolbar color="white" height="50.00px" card>
       <v-spacer></v-spacer>
-        <v-text-field 
-        flat
-        solo-inverted
-        label="ค้นหาเลยไหม ?" 
+        <input class="input"
         v-model="name"
-        hide-details
+        placeholder="  ค้นหาเลยไหม ?"
         @keyup.enter="searchProducts()"/>
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
     </v-toolbar>
       <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading"
       color="#F5580C" height="3"></v-progress-linear>
       <v-progress-linear class="hr-1" value=100 v-else
       color="#F5580C" height="3"></v-progress-linear>
   </div>
+    <div class="mb-5">
       <v-container
         fluid
         grid-list-md
         >
         <v-layout row wrap>
-              <v-flex xs6 v-if="products && products.length" v-for="product in products" :key="product" style="text-align:center; ">
-                <div>
-                  <v-card>
+              <v-flex xs6 v-if="products && products.length" v-for="product in products" :key="product" class="align-items-stretch">
+                <v-card class="d-flex" style="height: 100%">
+                  <div class="align-self-center">
                     <router-link :to="`/product/detail/${product.productId}`">
                       <ProductImage :id="product.productId"/>
                     </router-link>
-                      <div>{{product.productName}}</div>
-                      <div color="#F5580C">฿{{product.price | formatNumber}}</div>
-                    <v-btn @click="addProductInCart(product)" color="#F5580C">ใส่รถเข็น</v-btn>
-                  </v-card>
-                </div>
+                      <div class="product_name">{{product.productName}}</div>
+                      <div class="product_price">฿{{product.price | formatNumber}}</div>
+                      <div class="addProduct">
+                      <v-btn @click="addProductInCart(product)" color="#F5580C" >ใส่รถเข็น</v-btn>
+                      </div>
+                  </div>
+                </v-card>
               </v-flex>
         </v-layout>
       </v-container>
+    </div>
 </div>
 </template>
 
@@ -65,6 +66,7 @@ export default {
   },
   methods: {
     ...mapActions(['setIsShowToolBar']),
+    ...mapMutations({ addProductInCart: 'addProductInToCart' }),
     searchProducts: function() {
       this.loading = true
       axios
@@ -89,5 +91,13 @@ export default {
 .hr-1 {
   padding: 0px;
   margin: 0px;
+}
+.input {	
+	padding: 3px;
+	border-radius: 9999em;
+  box-shadow: 
+  inset 0 0 0 1px #F5580C;
+  color:#F5580C;
+  font-size: 1.4em;
 }
 </style>
