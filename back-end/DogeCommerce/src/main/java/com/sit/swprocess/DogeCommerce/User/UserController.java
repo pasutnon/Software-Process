@@ -1,6 +1,10 @@
 package com.sit.swprocess.DogeCommerce.User;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sit.swprocess.DogeCommerce.AuthenProvider.AuthenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,11 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/users")
@@ -90,5 +93,22 @@ public class UserController {
         }else {
             return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
         }
+    }
+
+    @GetMapping(path = "/me")
+    public ResponseEntity<String> getMe(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        try {
+            DecodedJWT jwt = jwtService.verify(token);
+            String payload = jwt.getPayload();
+            Long userId = jwt.getClaim("id").asLong();
+            User user = userService.getUserById(userId).get();
+            
+            String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ user.getId() +"}";
+            return new ResponseEntity<String>(responseJson, HttpStatus.OK);
+        }catch (JWTVerificationException jwte) {
+            jwte.printStackTrace();
+        }
+        return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
     }
 }
