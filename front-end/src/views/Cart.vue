@@ -43,12 +43,12 @@
   </v-container>
 
 
-    <div>
+    <v-card class="card">
         <b-row>
-            <b-col cols="8">
+            <b-col cols="7">
                 <h2>รวม ฿ {{ totalCartPrice | formatNumber }}</h2>
             </b-col>
-            <b-col cols="4">
+            <b-col cols="5">
                 <div class="text-xs-right">
                     <router-link to="orderDetail">
                         <v-btn>ชำระเงิน ({{ totalItemInCart | formatNumber }})</v-btn>
@@ -56,7 +56,7 @@
                 </div>
             </b-col>
         </b-row>
-    </div>
+    </v-card>
 
   </div>
 </template>
@@ -111,6 +111,14 @@ button{
     width: 100%;
     margin-top: 0 !important;
     z-index: 100;
+}
+.card{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    height: 50px;
+    z-index: 100;
+    margin-bottom: 57px !important;
 }
 </style>
 
