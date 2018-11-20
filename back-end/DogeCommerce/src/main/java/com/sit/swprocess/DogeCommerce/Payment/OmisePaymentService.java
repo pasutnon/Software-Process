@@ -2,10 +2,13 @@ package com.sit.swprocess.DogeCommerce.Payment;
 
 import co.omise.Client;
 import co.omise.ClientException;
+import co.omise.models.Card;
 import co.omise.models.Charge;
+import co.omise.models.ChargeStatus;
 import co.omise.models.OmiseException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sit.swprocess.DogeCommerce.Order.Order;
+import com.sit.swprocess.DogeCommerce.Order.OrderService;
 import com.sit.swprocess.DogeCommerce.OrderDetail.OrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +25,9 @@ public class OmisePaymentService {
 
     @Autowired
     DecimalFormat decimalFormat;
+
+    @Autowired
+    OrderService orderService;
 
     @Value("${frontend.url}")
     private String frontendURL;
@@ -40,28 +46,33 @@ public class OmisePaymentService {
         this.omiseClient = new Client(PUBLIC_KEY, SECRET_KEY);
     }
 
-    public ChargeResult chargeItem(String token, long orderId, long price) throws IOException, OmiseException, ClientException {
+    public ChargeResult chargeOrder(String token, Order order) throws IOException, OmiseException, ClientException {
         Charge.Create chargeSpec = new Charge.Create();
+
         chargeSpec
-                .amount(price)
+                .amount(this.calculatePriceForOmise(order))
                 .currency("THB")
                 .card(token)
-                .returnUri(frontendURL + "order/" + orderId + "/payment/omise/complete");
+                .returnUri(frontendURL + "order/" + order.getId() + "/payment/omise/complete");
         Charge charge = this.omiseClient.charges().create(chargeSpec);
-        ChargeResult chargeResult = new ChargeResult(charge.getId(), orderId, charge.getAuthorizeUri());
+
+        OmisePayment omisePayment = new OmisePayment();
+        omisePayment.setLast4Digit(this.getLast4Digit(charge.getCard()));
+        omisePayment.setChargeId(charge.getId());
+        omisePayment.setStatus("pending");
+        order.setPayment(omisePayment);
+        orderService.saveOrder(order);
+
+        ChargeResult chargeResult = new ChargeResult(charge.getId(), order.getId(), charge.getAuthorizeUri());
         return chargeResult;
     }
 
-    public String getLast4Digit(String chargeToken) throws OmiseException, IOException {
-        return omiseClient.charges().get(chargeToken).getCard().getLastDigits();
+    public String getLast4Digit(Card card) throws OmiseException, IOException {
+        return card.getLastDigits();
     }
 
     public Client getOmiseClient() {
         return omiseClient;
-    }
-
-    public boolean isPaid(String chargeId) throws IOException, OmiseException {
-        return omiseClient.charges().get(chargeId).isPaid();
     }
 
     public long calculatePriceForOmise(Order order) {
@@ -72,5 +83,22 @@ public class OmisePaymentService {
             }
         }
         return price;
+    }
+
+    public ChargeStatusResponse checkAndUpdateStatus(Order order) throws IOException, OmiseException {
+        long paymentId = order.getPayment().getId();
+        OmisePayment omisePayment = this.getPaymentById(paymentId);
+
+        ChargeStatusResponse chargeStatusResponse = new ChargeStatusResponse();
+
+        Charge charge = omiseClient.charges().get(omisePayment.getChargeId());
+        if(charge.isPaid() == true) {
+            order.getPayment().setStatus("paid");
+            orderService.saveOrder(order);
+            chargeStatusResponse.setStatus("paid");
+        } else {
+            chargeStatusResponse.setStatus(order.getPayment().getStatus());
+        }
+        return chargeStatusResponse;
     }
 }

@@ -41,17 +41,10 @@ public class PaymentController {
         OmisePayment omisePayment = new OmisePayment();
         ChargeResult chargeResult;
         try {
-            chargeResult = omisePaymentService.chargeItem(token, order.getId(), omisePaymentService.calculatePriceForOmise(order));
-            
-            omisePayment.setLast4Digit(omisePaymentService.getLast4Digit(chargeResult.getChargeId()));
-            omisePayment.setChargeId(chargeResult.getChargeId());
-            omisePayment.setStatus("pending");
+            chargeResult = omisePaymentService.chargeOrder(token, order);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new ChargeException(e.getMessage());
         }
-        order.setPayment(omisePayment);
-        orderService.saveOrder(order);
         ResponseEntity<ChargeResult> response = new ResponseEntity<ChargeResult>(chargeResult, HttpStatus.CREATED);
         return response;
     }
@@ -61,17 +54,7 @@ public class PaymentController {
             @PathVariable("order_id") long orderId
     ) throws IOException, OmiseException {
         Order order = orderService.getOrderByOrderId(orderId).get();
-        long paymentId = order.getPayment().getId();
-        OmisePayment omisePayment = omisePaymentService.getPaymentById(paymentId);
-        boolean isPaid = omisePaymentService.isPaid(omisePayment.getChargeId());
-        ChargeStatusResponse chargeStatusResponse = new ChargeStatusResponse();
-        if(isPaid == true) {
-            order.getPayment().setStatus("paid");
-            orderService.saveOrder(order);
-            chargeStatusResponse.setStatus("paid");
-        } else {
-            chargeStatusResponse.setStatus(order.getPayment().getStatus());
-        }
+        ChargeStatusResponse chargeStatusResponse = omisePaymentService.checkAndUpdateStatus(order);
         return new ResponseEntity<ChargeStatusResponse>(chargeStatusResponse, HttpStatus.OK);
     }
 }
