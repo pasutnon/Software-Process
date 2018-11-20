@@ -36,9 +36,8 @@ public class OrderController {
         return new ResponseEntity<Order>(order.get(), HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<Order> createOrderByUserId(@RequestBody Map<String, Object> jsonBody) {
-        Long userId = Long.parseLong((String) jsonBody.get("buyerId"));
+    @PostMapping("/user/{userId}")
+    public ResponseEntity<Order> createOrderByUserId(@RequestBody Map<String, Object> jsonBody, @PathVariable Long userId) {
         Order order = orderService.createOrder(userId, jsonBody);
         return new ResponseEntity<Order>(order, HttpStatus.OK);
     }
