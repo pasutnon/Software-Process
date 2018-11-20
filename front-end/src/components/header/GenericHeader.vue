@@ -23,4 +23,9 @@ export default {
 .text-nav{
     color: orangered;
 }
+.hr-1 {
+    border: 2px solid orangered;
+    padding: 0px;
+    margin: 0px;
+}
 </style>

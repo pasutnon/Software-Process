@@ -31,7 +31,7 @@ const router = new Router({
       }
     },
     {
-      path: '/PaymentSuccess',
+      path: '/PaymentSuccess/:orderId',
       name: 'PaymentSuccess',
       component: function () {
         return import('./views/PaymentSuccess.vue')
@@ -73,6 +73,14 @@ const router = new Router({
       }
     },
     {
+      path: '/order/:orderId/payment/omise',
+      name: 'Payment',
+      component: Payment,
+      meta: {
+        middleware: [authMiddleware],
+      },
+    },
+    {
       path: '/order/:orderId/payment/omise/complete',
       name: 'PaymentComplete',
       component: PaymentComplete,
@@ -81,7 +89,7 @@ const router = new Router({
       },
     },
     {
-      path: '/order/detail',
+      path: '/order/summary',
       name: 'OrderDetail',
       component: function () {
         return import('./views/OrderDetail.vue')
