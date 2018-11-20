@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'kittithada_medium_65regular';
+    src: url('/assets/font/psl244pro-webfont.woff2') format('woff2'),
+         url('/assets/font/psl244pro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
