@@ -121,14 +121,9 @@
         const chargeFormData = new FormData()
         chargeFormData.append('token', cardToken)
         try {
-          const chargeResponse = await axios.post(
-            `/payments/order/${this.$route.params.orderId}/omise`,
-            chargeFormData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            }
+          const chargeResponse = await axios.post(`/payments/order/${this.$route.params.orderId}/omise`, {
+                  token: cardToken
+                }
           )
           window.location = chargeResponse.data.authorizedUrl
         } catch (err) {

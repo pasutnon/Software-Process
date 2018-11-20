@@ -33,7 +33,7 @@ public class OmisePaymentService {
     private String frontendURL;
 
     private Client omiseClient;
-    
+
     public OmisePaymentService(String PUBLIC_KEY, String SECRET_KEY) throws ClientException {
         this.omiseClient = new Client(PUBLIC_KEY, SECRET_KEY);
     }
@@ -52,7 +52,7 @@ public class OmisePaymentService {
         Charge.Create chargeSpec = new Charge.Create();
 
         chargeSpec
-                .amount(this.calculatePriceForOmise(order))
+                .amount(this.calculatePrice(order))
                 .currency("THB")
                 .card(token)
                 .returnUri(frontendURL + "order/" + order.getId() + "/payment/omise/complete");
@@ -77,14 +77,16 @@ public class OmisePaymentService {
         return omiseClient;
     }
 
-    public long calculatePriceForOmise(Order order) {
-        long price = 0;
+    public long calculatePrice(Order order) {
+        double price = 0;
         if (order.getOrderDetails() != null) {
             for(OrderDetail orderDetail: order.getOrderDetails()) {
-                price += Long.parseLong(this.decimalFormat.format(orderDetail.getQuantity() * orderDetail.getPriceEach() * 100));
+                price += orderDetail.getQuantity() * orderDetail.getPriceEach();
             }
         }
-        return price;
+        price += order.getShipment().getPrice();
+        long calculatedPrice = Long.parseLong(this.decimalFormat.format(Math.floor(price))) * 100;
+        return calculatedPrice;
     }
 
     public ChargeStatusResponse checkAndUpdateStatus(Order order) throws IOException, OmiseException {

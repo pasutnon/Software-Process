@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +36,10 @@ public class OrderController {
         return new ResponseEntity<Order>(order.get(), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Order> createOrderByUserId(@RequestBody Map<String, Object> jsonBody) {
-        Long userId = Long.parseLong(jsonBody.get("buyerId")+"");
+        Long userId = Long.parseLong((String) jsonBody.get("buyerId"));
         Order order = orderService.createOrder(userId, jsonBody);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        return new ResponseEntity<Order>(order, HttpStatus.OK);
     }
 }

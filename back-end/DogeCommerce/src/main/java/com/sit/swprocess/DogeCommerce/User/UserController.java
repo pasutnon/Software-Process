@@ -75,8 +75,9 @@ public class UserController {
         String jsonSession = userService.signInWithFacebook(facebookToken, firstname, lastname, email);
         if(jsonSession != null) {
             return new ResponseEntity<String>(jsonSession, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<String>("{\"token\": "+ null +",\"userId\":"+ null +"}", HttpStatus.FORBIDDEN);
     }
 
     @GetMapping(path = "/me")
@@ -86,7 +87,7 @@ public class UserController {
             DecodedJWT jwt = jwtService.verify(token);
             Long userId = jwt.getClaim("id").asLong();
             User user = userService.getUserById(userId).get();
-
+            
             String responseJson = "{\"token\": \""+ token +"\",\"userId\":"+ user.getId() +"}";
             return new ResponseEntity<String>(responseJson, HttpStatus.OK);
         }catch (JWTVerificationException jwte) {

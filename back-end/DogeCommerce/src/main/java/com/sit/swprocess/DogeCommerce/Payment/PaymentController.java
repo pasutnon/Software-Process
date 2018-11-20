@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/payments")
@@ -34,14 +35,14 @@ public class PaymentController {
 
     @PostMapping("/order/{order_id}/omise")
     public ResponseEntity<ChargeResult> createPayment(
-            @RequestParam(required = true, name = "token") String token,
+            @RequestBody Map<String, Object> jsonBody,
             @PathVariable("order_id") long orderId
     ) throws IOException, OmiseException {
         Order order = orderService.getOrderByOrderId(orderId).get();
         OmisePayment omisePayment = new OmisePayment();
         ChargeResult chargeResult;
         try {
-            chargeResult = omisePaymentService.chargeOrder(token, order);
+            chargeResult = omisePaymentService.chargeOrder((String) jsonBody.get("token"), order);
         } catch (Exception e) {
             throw new ChargeException(e.getMessage());
         }
