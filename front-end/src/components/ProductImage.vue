@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "../utils/axios.js"
 
 export default {
   name: "ProductImage",
@@ -21,7 +21,7 @@ export default {
 
   created() {
     axios
-    .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products/"+this.id+"/images")
+    .get("/products/"+this.id+"/images")
     .then(response => {
         console.log(response.data)
         return this.path = response.data.path

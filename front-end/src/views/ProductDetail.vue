@@ -35,7 +35,7 @@
 <script>
 import ProductDetailHeader from '../components/header/ProductDetailHeader';
 import { mapActions,mapMutations } from 'vuex'
-import axios from "axios"
+import axios from "../utils/axios.js"
   export default {
     components: {
       ProductDetailHeader
@@ -62,12 +62,12 @@ import axios from "axios"
       ...mapActions(['setIsShowToolBar']),
       ...mapMutations({ addProductInCart: 'addProductInToCart' }),
       async getProductDetail(){
-        const { data } = await axios.get(process.env.VUE_APP_DOGE_COMMERCE_SERVICE_URL+"/products/"+this.productID);
+        const { data } = await axios.get("/products/"+this.productID);
         this.product = data;
         this.loading1 = false;
       },
       async getProductImage(){
-        const { data } = await axios.get(process.env.VUE_APP_DOGE_COMMERCE_SERVICE_URL+"/products/"+this.productID+"/images");
+        const { data } = await axios.get("/products/"+this.productID+"/images");
         this.productImage = data;
         this.loading2 = false;
       },

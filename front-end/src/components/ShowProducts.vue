@@ -27,7 +27,7 @@
 
 <script>
 import ProductImage from "./ProductImage";
-import axios from "axios";
+import axios from "../utils/axios.js";
 import numeral from "numeral";
 import vue from "vue";
 import { mapGetters, mapMutations } from "vuex";
@@ -44,7 +44,7 @@ export default {
   },
   created() {
     axios
-      .get("https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products")
+      .get("/products")
       .then(response => (this.products = response.data));
   },
   computed: {

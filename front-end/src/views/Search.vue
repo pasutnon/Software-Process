@@ -48,7 +48,7 @@
 <script>
 import HomeHeader from "../components/header/HomeHeader";
 import ProductImage from "../components/ProductImage";
-import axios from "axios";
+import axios from "../utils/axios.js";
 import numeral from "numeral";
 import vue from "vue";
 import { mapActions,mapGetters, mapMutations } from "vuex";
@@ -76,8 +76,7 @@ export default {
       this.loading = true
       axios
         .get(
-          "https://doge-commerce-back-end-grumpy-gecko.mybluemix.net/products/name/containing/" +
-            this.name
+          "/products/name/containing/" + this.name
         )
         .then(response => {
           this.products = response.data; // JSON are parsed automatically.
