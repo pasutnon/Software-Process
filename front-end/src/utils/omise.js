@@ -1,5 +1,5 @@
 const { Omise } = window
-const PUBLIC_KEY = 'pkey_test_5dz45mwox7px53uazab'
+const PUBLIC_KEY = process.env.VUE_APP_PUB_OMISE
 
 Omise.setPublicKey(PUBLIC_KEY)
 
