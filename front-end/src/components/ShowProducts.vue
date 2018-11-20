@@ -18,10 +18,10 @@
                   <b-col cols>
                   <div class="product_name">{{product.productName}}</div>
                     <br>
-                  <div class="product_price">฿{{product.price | formatNumber}}</div>
+                  <div class="product_price">฿ {{product.price | formatNumber}}</div>
                   </b-col>
                   <b-col cols>
-                  <div class="addProduct"><v-btn @click="addProductInCart(product)" color="#F5580C" ><img src="..\assets\Cart-White.svg"></v-btn></div>
+                  <div class="addProduct"><v-btn @click="addProductInCart(product)" color="#F5580C" ><img src="../assets/Cart-White.svg"></v-btn></div>
                   </b-col>
                   </b-row>
                   </b-container>
