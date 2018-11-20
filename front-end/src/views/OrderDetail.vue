@@ -166,7 +166,6 @@ import userUtils from '../utils/user.js'
             },
             processCheckout: async function () {
                 if (this.isSubmitted === false) {
-                    console.log('wow')
                     this.isSubmitted = true
                     this.processOrder()
                 }

@@ -11,9 +11,9 @@
             @keyup.enter="searchProducts()"/>
             <v-spacer></v-spacer>
         </v-toolbar>
-        <v-progress-linear class="hr-1" :indeterminate="true" v-if="loading"
+        <v-progress-linear style="padding: 0px;margin: 0px;" :indeterminate="true" v-if="loading"
         color="#F5580C" height="3"></v-progress-linear>
-        <v-progress-linear class="hr-1" value=100 v-else
+        <v-progress-linear style="padding: 0px;margin: 0px;" value=100 v-else
         color="#F5580C" height="3"></v-progress-linear>
       </div>
     </div>
@@ -95,10 +95,6 @@ export default {
 };
 </script>
 <style>
-.hr-1 {
-  padding: 0px;
-  margin: 0px;
-}
 .input {	
 	padding: 3px;
 	border-radius: 9999em;

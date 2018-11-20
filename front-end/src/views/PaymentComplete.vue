@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="fixed-nav btn-block button-add p-3 text-center" style="background-color: #f5580c; color: white; cursor: pointer;"> 
+    <div @click="confirm()" class="fixed-nav btn-block button-add p-3 text-center" style="background-color: #f5580c; color: white; cursor: pointer;"> 
         ยืนยัน
     </div>
   </div>
@@ -52,6 +52,10 @@ export default {
   methods: {
     ...mapMutations(['resetCart']),
     ...mapActions(['setIsShowToolBar']),
+    confirm: function () {
+      this.$router.push({ name: 'home' })
+      this.resetCart()
+    }
   }
 }
 </script>
