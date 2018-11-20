@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HomeHeader></HomeHeader>
+    <GenericHeader header="การดำเนินการจ่ายเงิน"></GenericHeader>
     <div class="container shadow-sm rounded bg-white mt-4">
       <div v-if="isWait">กำลังดึงข้อมูล</div>
       <div v-else>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import HomeHeader from '../components/header/HomeHeader.vue'
+import GenericHeader from '../components/header/GenericHeader.vue'
 import axios from '../utils/axios.js'
 
 export default {
@@ -23,7 +23,7 @@ export default {
     }
   },
   components: {
-    HomeHeader,
+    GenericHeader,
   },
 }
 </script>
